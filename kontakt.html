@@ -277,6 +277,55 @@
       hamburger.click();
     }
   });
+
+  document.querySelector('form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const name = document.querySelector('#name').value.trim();
+    const email = document.querySelector('#email').value.trim();
+    const website = document.querySelector('#website').value.trim();
+    const message = document.querySelector('#message').value.trim();
+
+    if (!name || !email || !message) {
+      alert('Bitte alle Pflichtfelder ausfüllen.');
+      return;
+    }
+
+    const webhookURL = "https://discord.com/api/webhooks/1395131140968550420/HcwLOX2qijqikIfklWXarsziJ2ksPnyiPc9xCAX1_smy49pULHAZEI9fnjHrXUUXgOtn";
+
+    const payload = {
+      embeds: [{
+        title: "🤝 Neue Partnerschaftsanfrage",
+        color: 3447003,
+        fields: [
+          { name: "👤 Name", value: name, inline: false },
+          { name: "✉️ E-Mail", value: email, inline: false },
+          { name: "🌐 Website", value: website || "Keine Angabe", inline: false },
+          { name: "📝 Nachricht", value: message, inline: false }
+        ],
+        timestamp: new Date().toISOString()
+      }]
+    };
+
+    try {
+      const response = await fetch(webhookURL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        alert('Deine Anfrage wurde erfolgreich gesendet.');
+        this.reset();
+      } else {
+        alert('Fehler beim Senden. Bitte versuche es später erneut.');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Verbindungsfehler. Bitte versuche es später erneut.');
+    }
+  });
 </script>
+
 </body>
 </html>
