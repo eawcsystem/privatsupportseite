@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Privater Support – Startseite</title>
+<style>
+  /* Farben Light Mode */
+  :root {
+    --bg-color: #f8f9fa;
+    --text-color: #333;
+    --primary-color: #2575fc;
+    --header-bg: linear-gradient(135deg, #6a11cb, #2575fc);
+    --btn-bg: white;
+    --btn-text: #2575fc;
+    --nav-bg: #fff;
+    --nav-link: #333;
+    --nav-link-hover: #2575fc;
+    --section-bg: white;
+    --footer-bg: #f1f1f1;
+    --footer-text: #555;
+  }
+
+  /* Farben Dark Mode */
+  .dark {
+    --bg-color: #121212;
+    --text-color: #ddd;
+    --primary-color: #6a9cff;
+    --header-bg: linear-gradient(135deg, #1e3c72, #2a5298);
+    --btn-bg: #2575fc;
+    --btn-text: white;
+    --nav-bg: #1e1e1e;
+    --nav-link: #ccc;
+    --nav-link-hover: #6a9cff;
+    --section-bg: #1e1e1e;
+    --footer-bg: #222;
+    --footer-text: #aaa;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  /* Header / Hero */
+  .hero {
+    background: var(--header-bg);
+    color: white;
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+    transition: background 0.3s;
+  }
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  .hero p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+  }
+  .btn {
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    padding: 0.8rem 1.6rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease, color 0.3s ease;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background-color: var(--btn-text);
+    color: var(--btn-bg);
+  }
+
+  /* Navigation */
+  nav.navbar {
+    background-color: var(--nav-bg);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    transition: background-color 0.3s;
+  }
+
+  nav.navbar .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav.navbar .nav-links li a {
+    text-decoration: none;
+    color: var(--nav-link);
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  nav.navbar .nav-links li a:hover {
+    color: var(--nav-link-hover);
+  }
+
+  /* Dark Mode Toggle */
+  .dark-mode-toggle {
+    background: none;
+    border: 2px solid var(--btn-text);
+    border-radius: 20px;
+    color: var(--btn-text);
+    padding: 0.3rem 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    user-select: none;
+  }
+  .dark-mode-toggle:hover {
+    background-color: var(--btn-text);
+    color: var(--btn-bg);
+  }
+
+  /* Hamburger Menü */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+  .hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: var(--nav-link);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  /* Main Content */
+  main {
+    max-width: 900px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+  }
+  section {
+    background: var(--section-bg);
+    border-radius: 10px;
+    padding: 1.8rem 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  section h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--footer-bg);
+    font-size: 0.9rem;
+    color: var(--footer-text);
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  /* Responsive Styles */
+
+  @media (max-width: 768px) {
+    nav.navbar .nav-links {
+      position: fixed;
+      top: 60px;
+      right: -100%;
+      height: calc(100% - 60px);
+      width: 200px;
+      background-color: var(--nav-bg);
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 2rem;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.15);
+      transition: right 0.3s ease;
+      z-index: 999;
+    }
+
+    nav.navbar .nav-links.active {
+      right: 0;
+    }
+
+    nav.navbar .nav-links li a {
+      font-size: 1.2rem;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+
+    .dark-mode-toggle {
+      order: 1;
+    }
+  }
+
+  /* Hamburger Animation */
+  .hamburger.active div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .hamburger.active div:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active div:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+
+</style>
+</head>
+<body>
+  <header class="hero">
+    <h1>Willkommen bei Privat Support</h1>
+    <p>Dein Service für Discord, soziale Medien & mehr!</p>
+    <a href="services.html" class="btn">Mehr erfahren</a>
+  </header>
+
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><a href="index.html">Startseite</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="blacklist.html">Blacklist</a></li>
+      <li><a href="partnerschaft.html">Partnerschaft</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+    <button class="dark-mode-toggle" aria-label="Dark Mode umschalten">🌙</button>
+    <div class="hamburger" aria-label="Navigation umschalten" role="button" tabindex="0">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Was wir anbieten</h2>
+      <p>Wir unterstützen dich bei der Einrichtung und Verwaltung von Discord-Servern, Social Media Management und vielem mehr. Von technischen Fragen bis zur Community-Moderation sind wir für dich da.</p>
+    </section>
+
+    <section>
+      <h2>Deine Gegenleistung</h2>
+      <p>Unsere Leistungen sind fair und transparent. Als Gegenleistung erwarten wir eine klare Kommunikation, respektvolles Miteinander und im Falle von Premium-Services eine angemessene Bezahlung oder Partnerschaft.</p>
+    </section>
+
+    <section>
+      <h2>Servicezeiten</h2>
+      <p>Wir sind für dich erreichbar:<br>
+         Montag - Freitag: 10:00 - 20:00 Uhr<br>
+         Samstag: 12:00 - 18:00 Uhr<br>
+         Sonntag: Geschlossen</p>
+    </section>
+
+    <section>
+      <h2>Weitere Informationen</h2>
+      <p>Auf den einzelnen Seiten findest du Details zu unseren Services, aktuellen News, unserer Blacklist und unseren Partnern.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Privat Support. Alle Rechte vorbehalten.</p>
+  </footer>
+
+  <script>
+    // Dark Mode Toggle
+    const toggleBtn = document.querySelector('.dark-mode-toggle');
+    const body = document.body;
+
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      body.classList.add('dark');
+      toggleBtn.textContent = '☀️';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      if(body.classList.contains('dark')){
+        toggleBtn.textContent = '☀️';
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        toggleBtn.textContent = '🌙';
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    });
+
+    // Hamburger Menü Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    // Accessibility: Toggle via keyboard (Enter/Space)
+    hamburger.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        hamburger.click();
+      }
+    });
+  </script>
+</body>
+</html>
