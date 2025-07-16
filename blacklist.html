@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blacklist – Privat Support</title>
+<style>
+  :root {
+    --bg-color: #f8f9fa;
+    --text-color: #333;
+    --primary-color: #2575fc;
+    --header-bg: linear-gradient(135deg, #6a11cb, #2575fc);
+    --btn-bg: white;
+    --btn-text: #2575fc;
+    --nav-bg: #fff;
+    --nav-link: #333;
+    --nav-link-hover: #2575fc;
+    --section-bg: white;
+    --footer-bg: #f1f1f1;
+    --footer-text: #555;
+  }
+  .dark {
+    --bg-color: #121212;
+    --text-color: #ddd;
+    --primary-color: #6a9cff;
+    --header-bg: linear-gradient(135deg, #1e3c72, #2a5298);
+    --btn-bg: #2575fc;
+    --btn-text: white;
+    --nav-bg: #1e1e1e;
+    --nav-link: #ccc;
+    --nav-link-hover: #6a9cff;
+    --section-bg: #1e1e1e;
+    --footer-bg: #222;
+    --footer-text: #aaa;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  header.hero {
+    background: var(--header-bg);
+    color: white;
+    text-align: center;
+    padding: 3.5rem 2rem 2rem;
+    transition: background 0.3s;
+  }
+  header.hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+  }
+  header.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  main {
+    max-width: 900px;
+    margin: 2rem auto 4rem;
+    padding: 0 1rem;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--section-bg);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: var(--text-color);
+  }
+  th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+  }
+  tr:last-child td {
+    border-bottom: none;
+  }
+  @media (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    tr {
+      margin-bottom: 1.5rem;
+      border-radius: 10px;
+      background: var(--section-bg);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 1rem;
+    }
+    td {
+      border: none;
+      position: relative;
+      padding-left: 50%;
+      text-align: right;
+    }
+    td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 1rem;
+      width: 45%;
+      padding-left: 0.5rem;
+      font-weight: 600;
+      text-align: left;
+      color: var(--primary-color);
+    }
+  }
+
+  nav.navbar {
+    background-color: var(--nav-bg);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    transition: background-color 0.3s;
+  }
+  nav.navbar .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+  nav.navbar .nav-links li a {
+    text-decoration: none;
+    color: var(--nav-link);
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  nav.navbar .nav-links li a:hover {
+    color: var(--nav-link-hover);
+  }
+  .dark-mode-toggle {
+    background: none;
+    border: 2px solid var(--btn-text);
+    border-radius: 20px;
+    color: var(--btn-text);
+    padding: 0.3rem 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    user-select: none;
+  }
+  .dark-mode-toggle:hover {
+    background-color: var(--btn-text);
+    color: var(--btn-bg);
+  }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+  .hamburger div {
+    width: 25px;
+    height: 3px;
+    background-color: var(--nav-link);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  @media (max-width: 768px) {
+    nav.navbar .nav-links {
+      position: fixed;
+      top: 60px;
+      right: -100%;
+      height: calc(100% - 60px);
+      width: 200px;
+      background-color: var(--nav-bg);
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 2rem;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.15);
+      transition: right 0.3s ease;
+      z-index: 999;
+    }
+    nav.navbar .nav-links.active {
+      right: 0;
+    }
+    nav.navbar .nav-links li a {
+      font-size: 1.2rem;
+    }
+    .hamburger {
+      display: flex;
+    }
+    .dark-mode-toggle {
+      order: 1;
+    }
+  }
+  .hamburger.active div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .hamburger.active div:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active div:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>Blacklist</h1>
+  <p>Hier findest du Nutzer und Server, die vom Support ausgeschlossen sind</p>
+</header>
+
+<nav class="navbar">
+  <ul class="nav-links">
+    <li><a href="index.html">Startseite</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="news.html">News</a></li>
+    <li><a href="blacklist.html">Blacklist</a></li>
+    <li><a href="partnerschaft.html">Partnerschaft</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+  </ul>
+  <button class="dark-mode-toggle" aria-label="Dark Mode umschalten">🌙</button>
+  <div class="hamburger" aria-label="Navigation umschalten" role="button" tabindex="0">
+    <div></div><div></div><div></div>
+  </div>
+</nav>
+
+<main>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Typ</th>
+        <th>Grund</th>
+        <th>Datum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-label="Name">BeispielNutzer123</td>
+        <td data-label="Typ">Nutzer</td>
+        <td data-label="Grund">Verstoß gegen Regeln</td>
+        <td data-label="Datum">15.07.2025</td>
+      </tr>
+      <tr>
+        <td data-label="Name">SchlechterServer</td>
+        <td data-label="Typ">Server</td>
+        <td data-label="Grund">Spam und Trolling</td>
+        <td data-label="Datum">10.07.2025</td>
+      </tr>
+      <tr>
+        <td data-label="Name">TrollUserXYZ</td>
+        <td data-label="Typ">Nutzer</td>
+        <td data-label="Grund">Beleidigungen</td>
+        <td data-label="Datum">05.07.2025</td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+
+<footer>
+  <p>&copy; 2025 Privat Support. Alle Rechte vorbehalten.</p>
+</footer>
+
+<script>
+  const toggleBtn = document.querySelector('.dark-mode-toggle');
+  const body = document.body;
+
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    body.classList.add('dark');
+    toggleBtn.textContent = '☀️';
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    body.classList.toggle('dark');
+    if(body.classList.contains('dark')){
+      toggleBtn.textContent = '☀️';
+      localStorage.setItem('darkMode', 'enabled');
+    } else {
+      toggleBtn.textContent = '🌙';
+      localStorage.setItem('darkMode', 'disabled');
+    }
+  });
+
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  });
+  hamburger.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      hamburger.click();
+    }
+  });
+</script>
+</body>
+</html>
