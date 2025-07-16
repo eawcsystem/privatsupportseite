@@ -283,24 +283,22 @@
 
     const name = document.querySelector('#name').value.trim();
     const email = document.querySelector('#email').value.trim();
-    const website = document.querySelector('#website').value.trim();
     const message = document.querySelector('#message').value.trim();
 
     if (!name || !email || !message) {
-      alert('Bitte alle Pflichtfelder ausfüllen.');
+      alert('Bitte alle Felder ausfüllen.');
       return;
     }
 
-    const webhookURL = "https://discord.com/api/webhooks/1395131140968550420/HcwLOX2qijqikIfklWXarsziJ2ksPnyiPc9xCAX1_smy49pULHAZEI9fnjHrXUUXgOtn";
+    const webhookURL = "https://discord.com/api/webhooks/1395131136220332193/uocQmHcrqgHpX_i5oKcgbZqDVM3zTeFivrsT_l16lphuMtlwSXgJiteqzdSSyrE6TF_6";
 
     const payload = {
       embeds: [{
-        title: "🤝 Neue Partnerschaftsanfrage",
-        color: 3447003,
+        title: "📨 Neue Kontaktanfrage",
+        color: 5814783,
         fields: [
           { name: "👤 Name", value: name, inline: false },
           { name: "✉️ E-Mail", value: email, inline: false },
-          { name: "🌐 Website", value: website || "Keine Angabe", inline: false },
           { name: "📝 Nachricht", value: message, inline: false }
         ],
         timestamp: new Date().toISOString()
@@ -315,7 +313,7 @@
       });
 
       if (response.ok) {
-        alert('Deine Anfrage wurde erfolgreich gesendet.');
+        alert('Deine Nachricht wurde erfolgreich gesendet.');
         this.reset();
       } else {
         alert('Fehler beim Senden. Bitte versuche es später erneut.');
