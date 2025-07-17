@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ticket erstellen – Privat Support</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0f172a;
+      color: #f1f5f9;
+      padding: 20px;
+    }
+    h1 {
+      color: #38bdf8;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: none;
+    }
+    button {
+      background-color: #2563eb;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎫 Ticket erstellen</h1>
+  <form id="ticketForm">
+    <label for="name">👤 Dein Name:</label>
+    <input type="text" id="name" required />
+
+    <label for="discord">💬 Dein Discord-Username:</label>
+    <input type="text" id="discord" placeholder="z. B. Nutzername#0000" required />
+
+    <label for="where">📍 Wo:</label>
+    <select id="where" required>
+      <option value="">Bitte auswählen</option>
+      <option value="Discord Server">Discord Server</option>
+      <option value="Außerhalb vom Server">Außerhalb vom Server</option>
+    </select>
+
+    <label for="message">📝 Nachricht:</label>
+    <textarea id="message" rows="5" required></textarea>
+
+    <button type="submit">✅ Ticket absenden</button>
+  </form>
+
+  <script>
+    document.getElementById('ticketForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const discord = document.getElementById('discord').value.trim();
+      const where = document.getElementById('where').value;
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !discord || !where || !message) {
+        alert("Bitte alle Felder ausfüllen.");
+        return;
+      }
+
+      const webhookURL = "https://discord.com/api/webhooks/1395487694993494046/ht1WrWtDcY-8bLeCfsqfsHM3QL8k2VDZsWKLa2HV0USLszvzk1-CSKtbhArZ07DBAEuo";
+
+      const embed = {
+        embeds: [
+          {
+            title: "🎫 Neues Support-Ticket",
+            color: 3447003,
+            fields: [
+              { name: "👤 Name", value: name, inline: false },
+              { name: "💬 Discord", value: discord, inline: false },
+              { name: "📍 Ort", value: where, inline: false },
+              { name: "📝 Nachricht", value: message, inline: false }
+            ],
+            timestamp: new Date().toISOString()
+          }
+        ]
+      };
+
+      try {
+        const res = await fetch(webhookURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(embed)
+        });
+
+        if (res.ok) {
+          alert("✅ Ticket erfolgreich gesendet! Vielen Dank.");
+          document.getElementById('ticketForm').reset();
+        } else {
+          alert("❌ Fehler beim Senden. Bitte später erneut versuchen.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("❌ Netzwerkfehler. Bitte später erneut versuchen.");
+      }
+    });
+  </script>
+</body>
+</html>
