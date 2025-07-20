@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partnerschaften – Privat Support</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+    header {
+      padding: 2rem;
+      background: #1e1e1e;
+      text-align: center;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    .partner {
+      display: flex;
+      background: #1c1c1c;
+      border-radius: 10px;
+      padding: 1rem;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .partner img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .partner-info {
+      flex: 1;
+    }
+    .partner-info h3 {
+      margin: 0 0 0.5rem 0;
+      color: #00bfff;
+    }
+    .join-btn {
+      background-color: #5865F2;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .footer-note {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+      padding-bottom: 2rem;
+    }
+    @media (max-width: 600px) {
+      .partner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🤝 Unsere Partner</h1>
+    <p>Hier findest du alle Server, mit denen wir aktiv zusammenarbeiten.</p>
+  </header>
+
+  <div class="container">
+    <!-- Partner 1 -->
+    <div class="partner">
+      <img src="img/partner1.png" alt="Partner 1 Bild" />
+      <div class="partner-info">
+        <h3>GamingZone DE</h3>
+        <p>Ein aktiver Gaming- & Community-Server mit Fokus auf Events, Games und faire Moderation.</p>
+      </div>
+      <a href="https://discord.gg/abc123" class="join-btn">🔗 Beitreten</a>
+    </div>
+
+    <!-- Partner 2 -->
+    <div class="partner">
+      <img src="img/partner2.png" alt="Partner 2 Bild" />
+      <div class="partner-info">
+        <h3>Media Support</h3>
+        <p>Support für Content Creator, YouTube, TikTok und kreative Projekte.</p>
+      </div>
+      <!-- Kein Premium → Kein Button -->
+    </div>
+  </div>
+
+  <div class="footer-note">
+    ⚠️ Nur verifizierte Partner werden hier angezeigt. Bei Blacklist-Eintrag entfällt die Partnerschaft automatisch. <br />
+    Mehr Infos unter <a href="https://privatsupportservices.netlify.app/blacklist" style="color:#00bfff;">Blacklist</a>
+  </div>
+</body>
+</html>
