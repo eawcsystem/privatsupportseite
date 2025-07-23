@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teambewerbung – Privat Support</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+
+    h1 {
+      color: #00c3ff;
+      margin-bottom: 20px;
+    }
+
+    form {
+      background-color: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 0 10px #00c3ff55;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: #2a2a2a;
+      color: #fff;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #00c3ff;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00a1d6;
+    }
+
+    .info {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Teambewerbung – Privat Support</h1>
+  <form id="bewerbungForm">
+    <label>Discord-Name (mit #0000):</label>
+    <input type="text" id="discord" required />
+
+    <label>Alter:</label>
+    <input type="number" id="alter" min="14" required />
+
+    <label>Hast du bereits in einem Team gearbeitet?</label>
+    <textarea id="teamerfahrung" rows="2" required></textarea>
+
+    <label>Wie gehst du mit stressigen Situationen um?</label>
+    <textarea id="stress" rows="2" required></textarea>
+
+    <label>Erfahrung im Support oder Moderation:</label>
+    <textarea id="erfahrung" rows="2" required></textarea>
+
+    <label>Wie viel Zeit kannst du pro Woche investieren?</label>
+    <input type="text" id="zeit" required />
+
+    <label>Warum möchtest du Teil des Teams sein?</label>
+    <textarea id="motivation" rows="3" required></textarea>
+
+    <label>Kennst du unsere Regeln und akzeptierst sie?</label>
+    <select id="akzeptiert" required>
+      <option value="Ja">Ja</option>
+      <option value="Nein">Nein</option>
+    </select>
+
+    <button type="submit">Bewerbung senden</button>
+    <div class="info">
+      ⚠️ Mindestalter: 14 Jahre. Ehrliche Angaben sind Pflicht!
+    </div>
+  </form>
+
+  <script>
+    const webhookURL = "https://discord.com/api/webhooks/1397461593092001834/iJnIV6gGW1gf4Ya7HcRcFPZ9Q6bSAN8njtOQcMbUftE1_Ovdfa2xd79LEDi4EGxEedT1";
+
+    document.getElementById("bewerbungForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const alter = document.getElementById("alter").value;
+      if (parseInt(alter) < 14) {
+        alert("Du musst mindestens 14 Jahre alt sein.");
+        return;
+      }
+
+      const data = {
+        embeds: [{
+          title: "📥 Neue Teambewerbung",
+          color: 5814783,
+          fields: [
+            { name: "👤 Discord-Name", value: document.getElementById("discord").value },
+            { name: "🎂 Alter", value: alter },
+            { name: "🧪 Team-Erfahrung", value: document.getElementById("teamerfahrung").value },
+            { name: "⚠️ Stress-Umgang", value: document.getElementById("stress").value },
+            { name: "💼 Erfahrung", value: document.getElementById("erfahrung").value },
+            { name: "⏰ Zeit pro Woche", value: document.getElementById("zeit").value },
+            { name: "🎯 Motivation", value: document.getElementById("motivation").value },
+            { name: "✅ Regeln akzeptiert?", value: document.getElementById("akzeptiert").value }
+          ],
+          footer: { text: "Privat Support – Teambewerbung" },
+          timestamp: new Date().toISOString()
+        }]
+      };
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        alert("✅ Deine Bewerbung wurde erfolgreich gesendet!");
+        document.getElementById("bewerbungForm").reset();
+      })
+      .catch(err => {
+        alert("❌ Fehler beim Senden.");
+        console.error(err);
+      });
+    });
+  </script>
+</body>
+</html>
