@@ -5,11 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privat Support Bot</title>
   <style>
+    :root {
+      --bg: #0d0d0d;
+      --primary: #00c8ff;
+      --card-bg: #1a1a1a;
+      --text-light: #ccc;
+      --text-dark: #f2f2f2;
+    }
+
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #0d0d0d;
-      color: #f2f2f2;
+      background-color: var(--bg);
+      color: var(--text-dark);
     }
 
     nav {
@@ -19,31 +27,33 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 20px;
+      border-bottom: 1px solid #222;
     }
 
     nav a {
-      color: #00c8ff;
+      color: var(--primary);
       text-decoration: none;
       font-weight: bold;
+      transition: 0.3s;
     }
 
     nav a:hover {
-      text-decoration: underline;
+      text-shadow: 0 0 5px var(--primary);
     }
 
     header {
-      padding: 40px 20px;
+      padding: 60px 20px;
       text-align: center;
-      background: linear-gradient(135deg, #111, #1a1a1a);
+      background: linear-gradient(135deg, #111, #1b1b1b);
     }
 
     h1 {
-      font-size: 32px;
+      font-size: 36px;
       margin-bottom: 10px;
     }
 
     p {
-      color: #ccc;
+      color: var(--text-light);
       max-width: 600px;
       margin: 0 auto;
       font-size: 16px;
@@ -51,26 +61,57 @@
 
     .content {
       padding: 40px 20px;
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
     .section {
-      background-color: #1a1a1a;
-      padding: 20px;
+      background-color: var(--card-bg);
+      padding: 25px;
       margin-bottom: 30px;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid #2a2a2a;
+      box-shadow: 0 0 8px #00000050;
     }
 
     .section h2 {
-      color: #00c8ff;
+      color: var(--primary);
       margin-top: 0;
+      font-size: 22px;
     }
 
     ul {
       padding-left: 18px;
-      color: #ddd;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    .section p {
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    .bot-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .bot-button a {
+      background-color: var(--primary);
+      color: #000;
+      text-decoration: none;
+      padding: 12px 28px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 30px;
+      box-shadow: 0 0 10px var(--primary);
+      transition: 0.3s;
+    }
+
+    .bot-button a:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px var(--primary);
     }
 
     footer {
@@ -79,6 +120,21 @@
       padding: 20px;
       font-size: 14px;
       color: #888;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 28px;
+      }
+
+      .section {
+        padding: 20px;
+      }
+
+      .bot-button a {
+        padding: 10px 20px;
+        font-size: 15px;
+      }
     }
   </style>
 </head>
@@ -95,42 +151,49 @@
     <a href="bot.html">🤖 Bot</a>
   </nav>
 
+  <!-- Header -->
   <header>
     <h1>🤖 Privat Support Bot</h1>
-    <p>Dein zuverlässiger Sicherheits- und Verwaltungs-Bot für deinen Discord Server</p>
+    <p>Unser exklusiver Sicherheits- & Verwaltungsbot für Discord-Server</p>
   </header>
 
+  <!-- Inhalt -->
   <div class="content">
     <div class="section">
-      <h2>🔐 Hauptfunktionen</h2>
+      <h2>🔧 Hauptfunktionen</h2>
       <ul>
-        <li>Automatischer Kick von Usern, die in der Blacklist stehen</li>
-        <li>Unterstützung beim Support direkt im Server</li>
-        <li>Integration in Partnersystem & Bewerbungsprozesse</li>
-        <li>Embed-Nachrichten bei Webhook-Formularen</li>
+        <li>Kick von Nutzern mit Eintrag in der zentralen Blacklist</li>
+        <li>Automatisierte Benachrichtigungen bei Formularen (via Webhook)</li>
+        <li>Bot erkennt Regelverstöße & schützt euren Server</li>
+        <li>Nahtlose Integration in Partnerschaften & Supportsystem</li>
       </ul>
     </div>
 
     <div class="section">
-      <h2>🛡 Datenschutzfreundlich</h2>
-      <p>Der Bot speichert keine Nachrichten oder persönlichen Inhalte – er arbeitet nur mit festgelegten Daten wie der Blacklist-ID. Sicher, DSGVO-konform & effizient.</p>
+      <h2>🔐 Datenschutzfreundlich</h2>
+      <p>Unser Bot speichert <strong>keine Nachrichten oder Inhalte</strong>. Er verarbeitet nur IDs & Webhook-Events zur Sicherheit. Komplett DSGVO-konform & ohne Spuren im System.</p>
     </div>
 
     <div class="section">
-      <h2>⚠️ Rechte & Anforderungen</h2>
+      <h2>⚙️ Rechte & Anforderungen</h2>
       <ul>
-        <li>Benötigt <strong>Admin-Rechte</strong>, um vollständig zu funktionieren</li>
-        <li>Blacklist funktioniert serverübergreifend</li>
-        <li>Funktioniert in Echtzeit – kein Neustart erforderlich</li>
+        <li>Benötigt <strong>Admin-Rechte</strong> zur Ausführung aller Funktionen</li>
+        <li>Blacklist gilt serverübergreifend</li>
+        <li>Direkter Kick bei erkannter ID – kein Neustart des Bots nötig</li>
       </ul>
     </div>
 
     <div class="section">
       <h2>📌 Hinweis</h2>
-      <p>Der Bot kann <strong>nicht bannen</strong>, sondern führt ausschließlich Kicks bei erkannten Blacklist-Einträgen aus.</p>
+      <p>⚠️ Der Bot führt ausschließlich <strong>Kicks</strong> durch – keine Banns oder komplexen Moderationsfunktionen. Fokus liegt auf Sicherheit & Schutz gegen bekannte Störer.</p>
+    </div>
+
+    <div class="bot-button">
+      <a href="https://discord.com/oauth2/authorize?client_id=1396232858930253824" target="_blank">🤖 Bot jetzt einladen</a>
     </div>
   </div>
 
+  <!-- Footer -->
   <footer>
     &copy; 2025 Privat Support Services – Alle Rechte vorbehalten.
   </footer>
