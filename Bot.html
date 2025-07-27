@@ -1,138 +1,127 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privat Support Bot</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privat Support – Bot</title>
   <style>
-    :root {
-      --bg: #0d0d0d;
-      --primary: #00c8ff;
-      --card-bg: #1a1a1a;
-      --text-light: #ccc;
-      --text-dark: #f2f2f2;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: var(--bg);
-      color: var(--text-dark);
-    }
-
-    nav {
-      background-color: #111;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      border-bottom: 1px solid #222;
-    }
-
-    nav a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      text-shadow: 0 0 5px var(--primary);
-    }
-
-    header {
-      padding: 60px 20px;
-      text-align: center;
-      background: linear-gradient(135deg, #111, #1b1b1b);
-    }
-
-    h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: var(--text-light);
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 16px;
-    }
-
-    .content {
-      padding: 40px 20px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .section {
-      background-color: var(--card-bg);
-      padding: 25px;
-      margin-bottom: 30px;
-      border-radius: 12px;
-      border: 1px solid #2a2a2a;
-      box-shadow: 0 0 8px #00000050;
-    }
-
-    .section h2 {
-      color: var(--primary);
-      margin-top: 0;
-      font-size: 22px;
-    }
-
-    ul {
-      padding-left: 18px;
-      color: var(--text-light);
-      line-height: 1.7;
-    }
-
-    .section p {
-      color: var(--text-light);
+      background-color: #0f0f0f;
+      color: #f1f1f1;
       line-height: 1.6;
     }
 
-    .bot-button {
+    header {
+      background: linear-gradient(135deg, #111, #1c1c1c);
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      color: #00c8ff;
+    }
+
+    header p {
+      margin-top: 10px;
+      color: #ccc;
+    }
+
+    nav {
+      background-color: #1a1a1a;
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      border-bottom: 1px solid #333;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #00c8ff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      text-shadow: 0 0 6px #00c8ff;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .section {
+      background-color: #1b1b1b;
+      padding: 25px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      border-left: 4px solid #00c8ff;
+    }
+
+    .section h2 {
+      margin-bottom: 10px;
+      color: #00c8ff;
+    }
+
+    .section ul {
+      padding-left: 20px;
+    }
+
+    .bot-invite {
       display: flex;
       justify-content: center;
       margin-top: 30px;
     }
 
-    .bot-button a {
-      background-color: var(--primary);
+    .bot-invite a {
+      background-color: #00c8ff;
       color: #000;
       text-decoration: none;
-      padding: 12px 28px;
+      padding: 14px 32px;
       font-size: 16px;
       font-weight: bold;
       border-radius: 30px;
-      box-shadow: 0 0 10px var(--primary);
-      transition: 0.3s;
+      box-shadow: 0 0 10px #00c8ff80;
+      transition: 0.3s ease;
     }
 
-    .bot-button a:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px var(--primary);
+    .bot-invite a:hover {
+      background-color: #00b3e6;
+      box-shadow: 0 0 15px #00e1ff;
     }
 
     footer {
-      background-color: #111;
       text-align: center;
+      background-color: #111;
+      color: #888;
       padding: 20px;
       font-size: 14px;
-      color: #888;
+      margin-top: 60px;
     }
 
     @media (max-width: 600px) {
-      h1 {
-        font-size: 28px;
+      header h1 {
+        font-size: 2rem;
       }
 
-      .section {
-        padding: 20px;
+      nav {
+        gap: 15px;
       }
 
-      .bot-button a {
-        padding: 10px 20px;
+      .bot-invite a {
+        padding: 12px 24px;
         font-size: 15px;
       }
     }
@@ -140,7 +129,7 @@
 </head>
 <body>
 
-  <!-- Navigation -->
+  <!-- Navigation (1:1 wie Startseite) -->
   <nav>
     <a href="index.html">🏠 Startseite</a>
     <a href="pakete.html">📦 Pakete</a>
@@ -154,41 +143,42 @@
   <!-- Header -->
   <header>
     <h1>🤖 Privat Support Bot</h1>
-    <p>Unser exklusiver Sicherheits- & Verwaltungsbot für Discord-Server</p>
+    <p>Dein persönlicher Sicherheits- und Support-Bot für Discord</p>
   </header>
 
-  <!-- Inhalt -->
-  <div class="content">
+  <!-- Hauptinhalt -->
+  <div class="container">
+
     <div class="section">
       <h2>🔧 Hauptfunktionen</h2>
       <ul>
-        <li>Kick von Nutzern mit Eintrag in der zentralen Blacklist</li>
-        <li>Automatisierte Benachrichtigungen bei Formularen (via Webhook)</li>
-        <li>Bot erkennt Regelverstöße & schützt euren Server</li>
-        <li>Nahtlose Integration in Partnerschaften & Supportsystem</li>
+        <li>Kickt automatisch User, die in der Blacklist stehen</li>
+        <li>Empfängt Nachrichten aus Formularen per Webhook</li>
+        <li>Unterstützt Supportsysteme & Partnerschaftsschutz</li>
       </ul>
     </div>
 
     <div class="section">
-      <h2>🔐 Datenschutzfreundlich</h2>
-      <p>Unser Bot speichert <strong>keine Nachrichten oder Inhalte</strong>. Er verarbeitet nur IDs & Webhook-Events zur Sicherheit. Komplett DSGVO-konform & ohne Spuren im System.</p>
+      <h2>🔐 Datenschutz</h2>
+      <p>Der Bot speichert keine privaten Nachrichten oder Inhalte – vollständig DSGVO-konform und sicher für jede Community.</p>
     </div>
 
     <div class="section">
-      <h2>⚙️ Rechte & Anforderungen</h2>
+      <h2>⚙️ Voraussetzungen</h2>
       <ul>
-        <li>Benötigt <strong>Admin-Rechte</strong> zur Ausführung aller Funktionen</li>
-        <li>Blacklist gilt serverübergreifend</li>
-        <li>Direkter Kick bei erkannter ID – kein Neustart des Bots nötig</li>
+        <li>Benötigt <strong>Admin-Rechte</strong> für Kick-Funktionen</li>
+        <li>Blacklist wird serverübergreifend synchronisiert</li>
+        <li>Reagiert sofort auf neue Einträge – kein Neustart nötig</li>
       </ul>
     </div>
 
     <div class="section">
       <h2>📌 Hinweis</h2>
-      <p>⚠️ Der Bot führt ausschließlich <strong>Kicks</strong> durch – keine Banns oder komplexen Moderationsfunktionen. Fokus liegt auf Sicherheit & Schutz gegen bekannte Störer.</p>
+      <p>Der Bot führt ausschließlich <strong>Kicks</strong> durch – keine Bans oder Moderationsfunktionen. Ziel: Maximale Sicherheit bei minimaler Invasion.</p>
     </div>
 
-    <div class="bot-button">
+    <!-- Bot Einladung -->
+    <div class="bot-invite">
       <a href="https://discord.com/oauth2/authorize?client_id=1396232858930253824" target="_blank">🤖 Bot jetzt einladen</a>
     </div>
   </div>
