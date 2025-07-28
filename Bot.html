@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privat Support – Bot</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privat Support Bot</title>
   <style>
+    :root {
+      --primary: #00c8ff;
+      --bg-dark: #0f0f0f;
+      --bg-light: #1a1a1a;
+      --text-light: #f1f1f1;
+      --text-muted: #ccc;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -13,123 +21,122 @@
 
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #0f0f0f;
-      color: #f1f1f1;
-      line-height: 1.6;
-    }
-
-    header {
-      background: linear-gradient(135deg, #111, #1c1c1c);
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 2.8rem;
-      color: #00c8ff;
-    }
-
-    header p {
-      margin-top: 10px;
-      color: #ccc;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
     }
 
     nav {
-      background-color: #1a1a1a;
-      padding: 10px 0;
       display: flex;
-      justify-content: center;
-      gap: 30px;
-      border-bottom: 1px solid #333;
       flex-wrap: wrap;
+      justify-content: center;
+      background: var(--bg-light);
+      border-bottom: 1px solid #222;
+      padding: 10px 20px;
     }
 
     nav a {
-      color: #00c8ff;
+      color: var(--primary);
       text-decoration: none;
-      font-weight: bold;
-      padding: 10px;
+      margin: 10px 15px;
+      font-weight: 600;
       transition: 0.3s ease;
     }
 
     nav a:hover {
-      text-shadow: 0 0 6px #00c8ff;
+      text-shadow: 0 0 5px var(--primary);
+    }
+
+    header {
+      background: linear-gradient(135deg, #111, #1c1c1c);
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: var(--text-muted);
     }
 
     .container {
       max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 20px;
+      margin: 0 auto;
+      padding: 40px 20px;
     }
 
     .section {
-      background-color: #1b1b1b;
+      background: var(--bg-light);
+      border-left: 4px solid var(--primary);
       padding: 25px;
-      border-radius: 10px;
       margin-bottom: 30px;
-      border-left: 4px solid #00c8ff;
+      border-radius: 10px;
     }
 
     .section h2 {
-      margin-bottom: 10px;
-      color: #00c8ff;
+      color: var(--primary);
+      margin-bottom: 12px;
     }
 
     .section ul {
+      list-style: disc;
       padding-left: 20px;
     }
 
     .bot-invite {
-      display: flex;
-      justify-content: center;
-      margin-top: 30px;
+      text-align: center;
+      margin-top: 40px;
     }
 
     .bot-invite a {
-      background-color: #00c8ff;
+      background: var(--primary);
       color: #000;
-      text-decoration: none;
       padding: 14px 32px;
-      font-size: 16px;
-      font-weight: bold;
       border-radius: 30px;
-      box-shadow: 0 0 10px #00c8ff80;
-      transition: 0.3s ease;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 0 12px #00c8ff88;
+      transition: background 0.3s ease;
     }
 
     .bot-invite a:hover {
-      background-color: #00b3e6;
-      box-shadow: 0 0 15px #00e1ff;
+      background: #00b3e6;
+      box-shadow: 0 0 20px #00eaff;
     }
 
     footer {
       text-align: center;
-      background-color: #111;
-      color: #888;
       padding: 20px;
+      background: #111;
+      color: #888;
       font-size: 14px;
-      margin-top: 60px;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       header h1 {
         font-size: 2rem;
       }
 
-      nav {
-        gap: 15px;
-      }
-
       .bot-invite a {
         padding: 12px 24px;
-        font-size: 15px;
+        font-size: 0.95rem;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: center;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation (1:1 wie Startseite) -->
+  <!-- Navigation -->
   <nav>
     <a href="index.html">🏠 Startseite</a>
     <a href="pakete.html">📦 Pakete</a>
@@ -143,44 +150,59 @@
   <!-- Header -->
   <header>
     <h1>🤖 Privat Support Bot</h1>
-    <p>Dein persönlicher Sicherheits- und Support-Bot für Discord</p>
+    <p>Sicherheit, Blacklist-Prüfung & Webhook-Support für deinen Server</p>
   </header>
 
-  <!-- Hauptinhalt -->
+  <!-- Main Content -->
   <div class="container">
-
     <div class="section">
-      <h2>🔧 Hauptfunktionen</h2>
+      <h2>🎮 Öffentliche Commands (Spielgeld)</h2>
+      <p>Diese Befehle sind für alle Nutzer verfügbar und ermöglichen den spielerischen Umgang mit virtuellem Geld (kein echtes Geld):</p>
       <ul>
-        <li>Kickt automatisch User, die in der Blacklist stehen</li>
-        <li>Empfängt Nachrichten aus Formularen per Webhook</li>
-        <li>Unterstützt Supportsysteme & Partnerschaftsschutz</li>
+        <li><strong>!work</strong> – Verdiene Spielgeld durch tägliches Arbeiten</li>
+        <li><strong>!bank</strong> – Zeigt deinen aktuellen Kontostand an</li>
+        <li><strong>!überweisen</strong> – Überweise Spielgeld auf dein Bankkonto oder buche es ab</li>
+        <li><strong>!glücksrad</strong> – Drehe am Glücksrad und gewinne (oder verliere) virtuelles Geld</li>
+      </ul>
+      <p style="margin-top: 10px; color: var(--text-muted); font-size: 0.9rem;">
+        📌 Hinweis: Es handelt sich hierbei ausschließlich um Spielgeld-Funktionen – kein echter Zahlungsverkehr.
+      </p>
+    </div>
+
+    
+    <div class="section">
+      <h2>🔧 Funktionen</h2>
+      <ul>
+        <li>Kickt automatisch Nutzer, die auf der Blacklist stehen</li>
+        <li>Empfängt Nachrichten aus Supportformularen (per Webhook)</li>
+        <li>Keine Speicherung privater Nachrichten – 100% datenschutzfreundlich</li>
       </ul>
     </div>
 
     <div class="section">
-      <h2>🔐 Datenschutz</h2>
-      <p>Der Bot speichert keine privaten Nachrichten oder Inhalte – vollständig DSGVO-konform und sicher für jede Community.</p>
-    </div>
-
-    <div class="section">
-      <h2>⚙️ Voraussetzungen</h2>
+      <h2>📌 Anforderungen</h2>
       <ul>
-        <li>Benötigt <strong>Admin-Rechte</strong> für Kick-Funktionen</li>
-        <li>Blacklist wird serverübergreifend synchronisiert</li>
-        <li>Reagiert sofort auf neue Einträge – kein Neustart nötig</li>
+        <li>Der Bot benötigt <strong>Admin-Rechte</strong> für Kick-Berechtigung</li>
+        <li>Funktioniert auf jedem Server, in dem er eingeladen ist</li>
+        <li>Blacklist wird automatisch synchronisiert</li>
       </ul>
     </div>
 
     <div class="section">
-      <h2>📌 Hinweis</h2>
-      <p>Der Bot führt ausschließlich <strong>Kicks</strong> durch – keine Bans oder Moderationsfunktionen. Ziel: Maximale Sicherheit bei minimaler Invasion.</p>
+      <h2>🔐 Sicherheit & Datenschutz</h2>
+      <p>Der Bot speichert keine Nachrichten oder Benutzerdaten – er verarbeitet nur relevante Blacklist-Abgleiche zur Sicherheit deines Servers.</p>
     </div>
 
-    <!-- Bot Einladung -->
+    <div class="section">
+      <h2>ℹ️ Hinweis</h2>
+      <p>Der Bot <strong>bann’t nicht</strong>, sondern <strong>kickt nur</strong> Nutzer, die in der Blacklist stehen. Kein Logging oder Mod-Funktion enthalten.</p>
+    </div>
+
+    <!-- Invite Button -->
     <div class="bot-invite">
       <a href="https://discord.com/oauth2/authorize?client_id=1396232858930253824" target="_blank">🤖 Bot jetzt einladen</a>
     </div>
+
   </div>
 
   <!-- Footer -->
