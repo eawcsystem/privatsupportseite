@@ -13,138 +13,128 @@
       --muted: #aaa;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
+      margin: 0;
       font-family: "Segoe UI", sans-serif;
       background-color: var(--bg);
       color: var(--fg);
     }
 
-    /* Navigation */
     nav {
-      background-color: #111;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
+      background-color: #111;
       padding: 10px 20px;
+      position: relative;
     }
 
-    nav .logo {
+    .logo {
       font-size: 1.4rem;
       font-weight: bold;
       color: var(--accent);
     }
 
-    nav ul {
-      list-style: none;
+    .nav-links {
       display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 10px;
+      gap: 20px;
     }
 
-    nav ul li a {
-      text-decoration: none;
+    .nav-links a {
       color: var(--fg);
-      font-weight: 600;
+      text-decoration: none;
+      font-weight: bold;
       padding: 8px 12px;
       border-radius: 5px;
-      transition: 0.3s;
     }
 
-    nav ul li a:hover {
+    .nav-links a:hover {
       background-color: var(--card);
     }
 
-    header.hero {
-      background-color: var(--card);
-      text-align: center;
-      padding: 60px 20px;
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
     }
 
-    header.hero h1 {
-      font-size: 2.5rem;
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: var(--fg);
+      margin: 4px 0;
+      transition: 0.4s;
+    }
+
+    .nav-active {
+      display: flex !important;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background-color: #111;
+      padding: 10px 20px;
+      z-index: 10;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    main {
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 2rem;
       color: var(--accent);
       margin-bottom: 10px;
     }
 
-    header.hero p {
-      font-size: 1.1rem;
-      color: var(--muted);
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: var(--accent);
-      color: #000;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 6px;
-    }
-
-    .btn:hover {
-      background-color: #00aee0;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    .section {
+    .bot-info {
       background-color: var(--card);
-      padding: 25px;
+      padding: 20px;
       border-radius: 10px;
-      margin-bottom: 25px;
+      margin-top: 20px;
     }
 
-    .section h2 {
-      color: var(--accent);
-      margin-bottom: 15px;
-    }
-
-    ul {
+    .bot-info ul {
       padding-left: 20px;
     }
 
-    footer {
-      text-align: center;
-      background-color: #111;
-      color: var(--muted);
-      padding: 20px;
-      margin-top: 50px;
+    .invite-button {
+      display: inline-block;
+      background-color: var(--accent);
+      color: #000;
+      font-weight: bold;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-top: 15px;
     }
 
-    @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      nav ul {
-        flex-direction: column;
-        width: 100%;
-        gap: 10px;
-        margin-top: 10px;
-      }
-
-      nav ul li a {
-        width: 100%;
-        display: block;
-      }
-
-      header.hero h1 {
-        font-size: 2rem;
-      }
+    .invite-button:hover {
+      background-color: #00a4d6;
     }
   </style>
 </head>
@@ -153,50 +143,56 @@
   <!-- Navigation -->
   <nav>
     <div class="logo">Privat Support</div>
-    <ul>
-      <li><a href="index.html">🏠 Startseite</a></li>
-      <li><a href="pakete.html">📦 Pakete</a></li>
-      <li><a href="bot.html">🤖 Bot</a></li>
-      <li><a href="partner.html">🤝 Partner</a></li>
-      <li><a href="blacklist.html">🚫 Blacklist</a></li>
-      <li><a href="news.html">📰 News</a></li>
-      <li><a href="kontakt.html">📩 Kontakt</a></li>
-    </ul>
+
+    <div class="hamburger" onclick="toggleMenu(this)">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">🏠 Startseite</a>
+      <a href="pakete.html">📦 Pakete</a>
+      <a href="bot.html">🤖 Bot</a>
+      <a href="partner.html">🤝 Partner</a>
+      <a href="blacklist.html">🚫 Blacklist</a>
+      <a href="news.html">📰 News</a>
+      <a href="kontakt.html">📩 Kontakt</a>
+    </div>
   </nav>
 
-  <!-- Hero -->
-  <header class="hero">
-    <h1>Unser Discord Bot</h1>
-    <p>Sicherer, einfacher & mit Spielgeld-System – alles im eigenen Server!</p>
-    <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1396232858930253824" target="_blank">➕ Bot einladen</a>
-  </header>
+  <!-- Hauptinhalt -->
+  <main>
+    <h1>Unser Discord Bot 🤖</h1>
+    <p>Unser Privat Support Bot hilft dabei, deine Community zu organisieren und sicher zu halten.</p>
 
-  <!-- Inhalt -->
-  <div class="container">
-    <div class="section">
-      <h2>🔒 Was macht der Bot?</h2>
-      <p>
-        Unser Bot kickt automatisch alle Nutzer, die auf unserer <a href="blacklist.html">Blacklist</a> stehen.  
-        Er bietet gleichzeitig ein kleines Spielgeld-System – für Spaß und Aktivität im Server.
-      </p>
-    </div>
-
-    <div class="section">
-      <h2>🎮 Öffentliche Commands</h2>
+    <div class="bot-info">
+      <h2>Funktionen:</h2>
       <ul>
-        <li><strong>!work</strong> – Geld verdienen durch Arbeit</li>
-        <li><strong>!bank</strong> – Zeigt dein virtuelles Guthaben</li>
-        <li><strong>!überweisen</strong> – Geld auf Konto buchen oder abbuchen</li>
-        <li><strong>!glücksrad</strong> – Spiel dein Glück!</li>
+        <li>🔒 Kickt automatisch Nutzer aus der Blacklist</li>
+        <li>👤 Arbeitet datenschutzfreundlich – ohne Nachrichten-Speicherung</li>
+        <li>🧠 Keine Banner – nur automatische Kick-Funktion</li>
+        <li>📊 Adminrechte benötigt für vollen Funktionsumfang</li>
       </ul>
-      <p style="font-size: 0.9rem; color: var(--muted);">📌 Hinweis: Alle Funktionen nutzen nur Spielgeld – kein Echtgeld!</p>
-    </div>
-  </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Privat Support – Alle Rechte vorbehalten</p>
-  </footer>
+      <h2>Öffentliche Commands:</h2>
+      <ul>
+        <li><strong>!work</strong> – Geld verdienen</li>
+        <li><strong>!bank</strong> – Kontostand anzeigen</li>
+        <li><strong>!überweisen</strong> – Geld auf Konto buchen oder abbuchen</li>
+        <li><strong>!glücksrad</strong> – Glückspiel (Spielgeld)</li>
+      </ul>
+
+      <a class="invite-button" href="https://discord.com/oauth2/authorize?client_id=1396232858930253824">🤖 Bot einladen</a>
+    </div>
+  </main>
+
+  <script>
+    function toggleMenu(x) {
+      x.classList.toggle("active");
+      document.getElementById("navLinks").classList.toggle("nav-active");
+    }
+  </script>
 
 </body>
 </html>
