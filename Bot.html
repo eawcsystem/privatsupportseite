@@ -6,36 +6,77 @@
   <title>Privat Support – Bot</title>
   <style>
     :root {
-      --bg: #0e0e0e;
+      --bg: #0f0f0f;
       --fg: #ffffff;
       --accent: #00c8ff;
-      --card: #1a1a1a;
-      --text-muted: #aaaaaa;
+      --card: #1f1f1f;
+      --muted: #aaa;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: "Segoe UI", sans-serif;
       background-color: var(--bg);
       color: var(--fg);
-      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      background-color: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 10px 20px;
+    }
+
+    nav .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--fg);
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      background-color: var(--card);
     }
 
     header.hero {
       background-color: var(--card);
-      padding: 60px 20px;
       text-align: center;
+      padding: 60px 20px;
     }
 
     header.hero h1 {
       font-size: 2.5rem;
-      margin-bottom: 10px;
       color: var(--accent);
+      margin-bottom: 10px;
     }
 
     header.hero p {
-      font-size: 1.2rem;
-      color: var(--text-muted);
+      font-size: 1.1rem;
+      color: var(--muted);
     }
 
     .btn {
@@ -50,37 +91,7 @@
     }
 
     .btn:hover {
-      background-color: #00a3d6;
-    }
-
-    nav.navbar {
-      background-color: #111;
-      display: flex;
-      justify-content: center;
-      padding: 10px 0;
-      flex-wrap: wrap;
-    }
-
-    nav.navbar ul {
-      list-style: none;
-      display: flex;
-      gap: 20px;
-      padding: 0;
-      margin: 0;
-      flex-wrap: wrap;
-    }
-
-    nav.navbar li a {
-      text-decoration: none;
-      color: var(--accent);
-      font-weight: 600;
-      padding: 8px 12px;
-      transition: background 0.3s ease;
-      border-radius: 5px;
-    }
-
-    nav.navbar li a:hover {
-      background-color: var(--card);
+      background-color: #00aee0;
     }
 
     .container {
@@ -89,45 +100,59 @@
       padding: 0 20px;
     }
 
-    h2 {
-      color: var(--accent);
-    }
-
     .section {
       background-color: var(--card);
-      padding: 20px;
-      margin-bottom: 30px;
+      padding: 25px;
       border-radius: 10px;
+      margin-bottom: 25px;
+    }
+
+    .section h2 {
+      color: var(--accent);
+      margin-bottom: 15px;
     }
 
     ul {
       padding-left: 20px;
     }
 
-    ul li {
-      margin-bottom: 8px;
+    footer {
+      text-align: center;
+      background-color: #111;
+      color: var(--muted);
+      padding: 20px;
+      margin-top: 50px;
     }
 
-    footer {
-      background-color: #111;
-      color: var(--text-muted);
-      text-align: center;
-      padding: 20px 10px;
-      margin-top: 40px;
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      nav ul li a {
+        width: 100%;
+        display: block;
+      }
+
+      header.hero h1 {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Hero Header (Optional) -->
-  <header class="hero">
-    <h1>Unser Discord Bot</h1>
-    <p>Automatisierter Support & virtuelle Economy Features</p>
-    <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1396232858930253824" target="_blank">➕ Bot hinzufügen</a>
-  </header>
-
-  <!-- Navigation (von Startseite kopiert) -->
-  <nav class="navbar">
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">Privat Support</div>
     <ul>
       <li><a href="index.html">🏠 Startseite</a></li>
       <li><a href="pakete.html">📦 Pakete</a></li>
@@ -139,31 +164,38 @@
     </ul>
   </nav>
 
+  <!-- Hero -->
+  <header class="hero">
+    <h1>Unser Discord Bot</h1>
+    <p>Sicherer, einfacher & mit Spielgeld-System – alles im eigenen Server!</p>
+    <a class="btn" href="https://discord.com/oauth2/authorize?client_id=1396232858930253824" target="_blank">➕ Bot einladen</a>
+  </header>
+
   <!-- Inhalt -->
   <div class="container">
-
     <div class="section">
-      <h2>🔧 Was kann der Bot?</h2>
-      <p>Unser Support-Bot sorgt für Sicherheit auf deinem Server: Nutzer auf der Blacklist werden automatisch gekickt. Zusätzlich gibt es Funktionen für virtuelle Währung & Spaß.</p>
-    </div>
-
-    <div class="section">
-      <h2>🎮 Öffentliche Commands (Spielgeld)</h2>
-      <ul>
-        <li><strong>!work</strong> – Verdiene Spielgeld durch tägliches Arbeiten</li>
-        <li><strong>!bank</strong> – Zeigt deinen Spielgeld-Kontostand</li>
-        <li><strong>!überweisen</strong> – Spielgeld überweisen oder abbuchen</li>
-        <li><strong>!glücksrad</strong> – Drehe das Glücksrad für ein Spielgeld-Gewinnspiel</li>
-      </ul>
-      <p style="color: var(--text-muted); font-size: 0.9rem;">
-        📌 Hinweis: Kein echtes Geld – rein virtuelle Wirtschaftsfunktion.
+      <h2>🔒 Was macht der Bot?</h2>
+      <p>
+        Unser Bot kickt automatisch alle Nutzer, die auf unserer <a href="blacklist.html">Blacklist</a> stehen.  
+        Er bietet gleichzeitig ein kleines Spielgeld-System – für Spaß und Aktivität im Server.
       </p>
     </div>
 
+    <div class="section">
+      <h2>🎮 Öffentliche Commands</h2>
+      <ul>
+        <li><strong>!work</strong> – Geld verdienen durch Arbeit</li>
+        <li><strong>!bank</strong> – Zeigt dein virtuelles Guthaben</li>
+        <li><strong>!überweisen</strong> – Geld auf Konto buchen oder abbuchen</li>
+        <li><strong>!glücksrad</strong> – Spiel dein Glück!</li>
+      </ul>
+      <p style="font-size: 0.9rem; color: var(--muted);">📌 Hinweis: Alle Funktionen nutzen nur Spielgeld – kein Echtgeld!</p>
+    </div>
   </div>
 
+  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Privat Support. Alle Rechte vorbehalten.</p>
+    <p>&copy; 2025 Privat Support – Alle Rechte vorbehalten</p>
   </footer>
 
 </body>
