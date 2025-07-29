@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Team Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1f1f1f;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+    }
+    .container {
+      padding: 20px;
+    }
+    section {
+      margin-bottom: 30px;
+      background-color: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    section h2 {
+      margin-top: 0;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    input[type="password"] {
+      padding: 10px;
+      width: 200px;
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px;
+      background-color: #00aaff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #dashboard {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="auth">
+  <header>
+    <h1>🔒 Team Dashboard Login</h1>
+    <p>Bitte Passwort eingeben</p>
+    <input type="password" id="pw" placeholder="Team Passwort" />
+    <button onclick="checkPassword()">Einloggen</button>
+    <p id="error" style="color:red;"></p>
+  </header>
+</div>
+
+<div id="dashboard">
+  <header>
+    <h1>📊 Team Dashboard</h1>
+    <p>Willkommen im internen Bereich</p>
+  </header>
+
+  <div class="container">
+    <section>
+      <h2>📥 Neue Bewerbungen</h2>
+      <ul>
+        <li>Max#1234 – „Ich möchte als Supporter helfen.“</li>
+        <li>Lisa#5678 – „Ich bin aktiv & Discord erfahren.“</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>🎫 Offene Tickets</h2>
+      <ul>
+        <li>#1023 – Hilfe bei Partnerschaftsanfrage</li>
+        <li>#1024 – Frage zur Blacklist</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>🗂 Aufgaben</h2>
+      <ul>
+        <li>[ ] Bewerbungen prüfen</li>
+        <li>[x] Blacklist aktualisieren</li>
+        <li>[ ] Neue Partnerlogos einfügen</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>👥 Teammitglieder</h2>
+      <ul>
+        <li>𝚃𝚎𝚊𝚖 𝙼𝚎𝚖𝚋𝚎𝚛 👥 – Luca</li>
+        <li>𝚂𝚞𝚙𝚙𝚘𝚛𝚝 𝙰𝚐𝚎𝚗𝚝 🎧 – Sarah</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>📈 Statistik</h2>
+      <ul>
+        <li>Neue Bewerbungen (heute): 2</li>
+        <li>Blacklist-Einträge gesamt: 15</li>
+        <li>Support-Anfragen heute: 6</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>📁 Interne Vorlagen & Downloads</h2>
+      <ul>
+        <li><a href="#">📄 Bewerbungs-PDF</a></li>
+        <li><a href="#">🖼️ Logo (weiß)</a></li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<script>
+  function checkPassword() {
+    const pw = document.getElementById('pw').value;
+    if (pw === "support123") {
+      document.getElementById('auth').style.display = "none";
+      document.getElementById('dashboard').style.display = "block";
+    } else {
+      document.getElementById('error').textContent = "Falsches Passwort!";
+    }
+  }
+</script>
+</body>
+</html>
