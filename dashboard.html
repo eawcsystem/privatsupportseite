@@ -1,17 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Team Dashboard</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #121212;
-      color: #ffffff;
-      margin: 0;
-      padding: 0;
+      color: #fff;
+      margin: 0; padding: 0;
     }
     header {
       background-color: #1f1f1f;
@@ -40,10 +38,13 @@
     li {
       margin-bottom: 10px;
     }
-    input[type="password"] {
+    input {
       padding: 10px;
       width: 200px;
       margin-top: 10px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
     button {
       padding: 10px;
@@ -52,9 +53,30 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      display: block;
+      margin: 15px auto;
+      width: 220px;
     }
     #dashboard {
       display: none;
+    }
+    #error {
+      color: red;
+      text-align: center;
+    }
+    /* Sichtbarkeit je Rolle */
+    .admin-only, .leader-only, .support-only {
+      display: none;
+    }
+    /* Beispiel Live-Chat Box */
+    #live-chat {
+      background-color: #222;
+      padding: 15px;
+      border-radius: 8px;
+      max-height: 200px;
+      overflow-y: auto;
+      font-size: 0.9em;
+      border: 1px solid #444;
     }
   </style>
 </head>
@@ -63,79 +85,113 @@
 <div id="auth">
   <header>
     <h1>🔒 Team Dashboard Login</h1>
-    <p>Bitte Passwort eingeben</p>
-    <input type="password" id="pw" placeholder="Team Passwort" />
-    <button onclick="checkPassword()">Einloggen</button>
-    <p id="error" style="color:red;"></p>
+    <input type="text" id="username" placeholder="Benutzername" />
+    <input type="password" id="password" placeholder="Passwort" />
+    <button onclick="checkLogin()">Einloggen</button>
+    <p id="error"></p>
   </header>
 </div>
 
 <div id="dashboard">
   <header>
     <h1>📊 Team Dashboard</h1>
-    <p>Willkommen in Dashboard, da siehst du was aktuelle sind und die aufgaben.(⚠️ wen du aufgaben gemacht wurde, sag bitte den chef bescheid, danke)</p>
+    <p>Willkommen <span id="user-display"></span>! Hier siehst du deine Aufgaben und Infos.</p>
+    <button onclick="logout()">Logout</button>
   </header>
 
   <div class="container">
-    <section>
-      <h2>📥 Neue Bewerbungen</h2>
+
+    <section class="admin-only">
+      <h2>🔧 Admin Bereich</h2>
+      <p>Nur für Admins sichtbar.</p>
+    </section>
+
+    <section class="leader-only">
+      <h2>⚙️ Projektleitung Bereich</h2>
+      <p>Nur für Projektleiter sichtbar.</p>
+    </section>
+
+    <section class="support-only">
+      <h2>🎧 Support Bereich</h2>
       <ul>
-        <li>momentan sind es keinen Bewerber*innen</li>
+        <li>Neue Tickets: 5</li>
+        <li>Offene Anfragen: 3</li>
       </ul>
     </section>
 
     <section>
-      <h2>🎫 Offene Tickets</h2>
+      <h2>📥 Neue Bewerbungen</h2>
       <ul>
-        <li>momentan keinen</li>
+        <li>Max#1234 – „Ich möchte als Supporter helfen.“</li>
       </ul>
     </section>
 
     <section>
       <h2>🗂 Aufgaben</h2>
       <ul>
-       <li>momentan noch keinen</li>
+        <li>[ ] Bewerbungen prüfen</li>
+        <li>[x] Blacklist aktualisieren</li>
       </ul>
     </section>
 
     <section>
       <h2>👥 Teammitglieder</h2>
       <ul>
-        <li>𝙿𝚛𝚘𝚓𝚎𝚌𝚝 𝙻𝚎𝚊𝚍 ⚙️: doge43</li>
-        <li>𝙿𝚛𝚘𝚓𝚎𝚌𝚝 𝙻𝚎𝚊𝚍 ⚙️: mandalorian281</li>
-        <li>𝚂𝚞𝚙𝚙𝚘𝚛𝚝 𝙰𝚐𝚎𝚗𝚝 🎧: mathias09144_45205</li>
-        <li>𝚂𝚞𝚙𝚙𝚘𝚛𝚝 𝙰𝚐𝚎𝚗𝚝 🎧: ichbineinnoobindortnite</li>
+        <li>doge43 (Admin)</li>
+        <li>mandalorian281 (Projektleiter)</li>
+        <li>mathias09144_45205 (Support)</li>
       </ul>
     </section>
 
     <section>
-      <h2>📈 Statistik</h2>
-      <ul>
-        <li>Neue Bewerbungen (heute): 0</li>
-        <li>Blacklist-Einträge gesamt: 0</li>
-        <li>Support-Anfragen heute: 0</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>📁 Interne Vorlagen & Downloads</h2>
-      <ul>
-        <li> momentan keinen</li>
-      </ul>
+      <h2>💬 Live Chat (Webhook)</h2>
+      <div id="live-chat">
+        <!-- Beispiel-Messages -->
+        <p><strong>SupportBot:</strong> Neues Ticket eingegangen #1025</p>
+        <p><strong>doge43:</strong> Bitte alle Logs prüfen.</p>
+      </div>
     </section>
   </div>
 </div>
 
 <script>
-  function checkPassword() {
-    const pw = document.getElementById('pw').value;
-    if (pw === "support123") {
-      document.getElementById('auth').style.display = "none";
-      document.getElementById('dashboard').style.display = "block";
+  // Beispiel-Benutzer (in echt vom Backend)
+  const users = {
+    "doge43": {password: "adminpass", role: "admin"},
+    "mandalorian281": {password: "leadpass", role: "leader"},
+    "mathias09144_45205": {password: "supportpass", role: "support"}
+  };
+
+  function checkLogin() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const errorElem = document.getElementById("error");
+
+    if(users[username] && users[username].password === password){
+      // Login erfolgreich
+      errorElem.textContent = "";
+      document.getElementById("auth").style.display = "none";
+      document.getElementById("dashboard").style.display = "block";
+      document.getElementById("user-display").textContent = username;
+
+      // Rolle ausblenden/anzeigen
+      let role = users[username].role;
+      document.querySelectorAll(".admin-only").forEach(el => el.style.display = (role==="admin") ? "block" : "none");
+      document.querySelectorAll(".leader-only").forEach(el => el.style.display = (role==="leader") ? "block" : "none");
+      document.querySelectorAll(".support-only").forEach(el => el.style.display = (role==="support") ? "block" : "none");
     } else {
-      document.getElementById('error').textContent = "Falsches Passwort!";
+      errorElem.textContent = "Benutzername oder Passwort falsch!";
     }
   }
+
+  function logout(){
+    document.getElementById("auth").style.display = "block";
+    document.getElementById("dashboard").style.display = "none";
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("error").textContent = "";
+  }
 </script>
+
 </body>
 </html>
