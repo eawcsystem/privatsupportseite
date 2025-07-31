@@ -25,66 +25,10 @@
       transition: all 0.3s ease;
     }
 
-    /* Modernes Login Card Design */
-    #auth {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    .login-card {
-      background-color: var(--card-dark);
-      max-width: 400px;
-      padding: 40px 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    header {
+      background-color: var(--secondary);
+      padding: 20px;
       text-align: center;
-      animation: fadeIn 0.6s ease-out;
-    }
-
-    .login-card h1 {
-      margin-bottom: 20px;
-      font-size: 1.8em;
-      color: var(--primary);
-    }
-
-    .login-card input {
-      background-color: #2a2a2a;
-      color: white;
-      border: 1px solid #444;
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 12px;
-      width: 100%;
-      transition: 0.3s;
-    }
-
-    .login-card input:focus {
-      outline: none;
-      border-color: var(--primary);
-      background-color: #333;
-    }
-
-    .login-card button {
-      background-color: var(--primary);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 12px;
-      width: 100%;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-      cursor: pointer;
-    }
-
-    .login-card button:hover {
-      background-color: #008fcc;
-    }
-
-    #error {
-      color: red;
-      margin-top: 10px;
     }
 
     .container {
@@ -137,8 +81,31 @@
       opacity: 0.9;
     }
 
-    #dashboard { display: none; }
+    input:focus, select:focus {
+      outline: 2px solid var(--primary);
+      background-color: #fff;
+    }
 
+    section h2 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .success {
+      color: limegreen;
+    }
+
+    .error {
+      color: red;
+    }
+
+    #dashboard { display: none; }
+    #error { color: red; text-align: center; }
     .bereich { display: none; }
 
     .toggle-theme {
@@ -159,29 +126,24 @@
       section { padding: 15px; }
       button, input, select { width: 95%; }
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 <body>
 
 <div id="auth">
-  <div class="login-card">
+  <header>
     <h1>🔒 Team Dashboard Login</h1>
     <input type="text" id="username" placeholder="Benutzername" />
     <input type="password" id="password" placeholder="Passwort" />
-    <button onclick="checkLogin()">🚀 Einloggen</button>
+    <button onclick="checkLogin()">Einloggen</button>
     <p id="error"></p>
-  </div>
+  </header>
 </div>
 
 <div id="dashboard">
   <button class="toggle-theme" onclick="toggleTheme()">🌗 Wechsel Theme</button>
 
-  <header style="text-align:center; background-color: var(--secondary); padding: 20px;">
+  <header>
     <h1>📊 Team Dashboard</h1>
     <p>Willkommen <span id="user-display"></span>! Du siehst hier deine Teamfunktionen.</p>
     <button onclick="logout()">🚪 Logout</button>
@@ -203,10 +165,8 @@
         <option value="Letzte Besprechung dokumentieren">Letzte Besprechung dokumentieren</option>
         <option value="Neues Mitglied geprüft">Neues Mitglied geprüft</option>
       </select>
-
       <label for="task-comment">Kommentar (optional):</label>
       <input type="text" id="task-comment" placeholder="Kommentar zur Aufgabe..." />
-
       <button onclick="abschliessen()">✅ Aufgabe abschließen</button>
       <p id="task-status"></p>
     </section>
@@ -227,6 +187,16 @@
         <li>Sicherheitsprotokolle</li>
         <li>Blacklist verwalten</li>
       </ul>
+    </section>
+
+    <section class="bereich chef">
+      <h2>📅 Team-Meeting planen</h2>
+      <label for="meeting-topic">Thema des Meetings:</label>
+      <input type="text" id="meeting-topic" placeholder="z. B. Wochenplanung oder Sicherheitscheck" />
+      <label for="meeting-time">Zeitpunkt:</label>
+      <input type="text" id="meeting-time" placeholder="z. B. Freitag, 18:00 Uhr" />
+      <button onclick="meetingWebhook()">📨 An Discord senden</button>
+      <p id="meeting-status"></p>
     </section>
 
   </div>
@@ -264,12 +234,12 @@
 
       errorElem.textContent = "";
     } else {
-      errorElem.textContent = "❌ Benutzername oder Passwort falsch!";
+      errorElem.textContent = "Benutzername oder Passwort falsch!";
     }
   }
 
   function logout() {
-    document.getElementById("auth").style.display = "flex";
+    document.getElementById("auth").style.display = "block";
     document.getElementById("dashboard").style.display = "none";
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
@@ -301,7 +271,7 @@
 
     if (!selectedTask) {
       statusElem.textContent = "❗ Bitte wähle eine Aufgabe aus.";
-      statusElem.style.color = "orange";
+      statusElem.className = "error";
       return;
     }
 
@@ -330,7 +300,7 @@
     .then(res => {
       if (res.ok) {
         statusElem.textContent = "✅ Aufgabe wurde gemeldet!";
-        statusElem.style.color = "green";
+        statusElem.className = "success";
         document.getElementById("task-select").value = "";
         document.getElementById("task-comment").value = "";
       } else {
@@ -340,10 +310,61 @@
     .catch(err => {
       console.error(err);
       statusElem.textContent = "⚠️ Fehler beim Senden!";
-      statusElem.style.color = "red";
+      statusElem.className = "error";
+    });
+  }
+
+  function meetingWebhook() {
+    const topic = document.getElementById("meeting-topic").value.trim();
+    const time = document.getElementById("meeting-time").value.trim();
+    const user = document.getElementById("user-display").textContent;
+    const status = document.getElementById("meeting-status");
+
+    if (!topic || !time) {
+      status.textContent = "❗ Bitte Thema und Zeitpunkt eingeben.";
+      status.className = "error";
+      return;
+    }
+
+    const meetingPayload = {
+      embeds: [
+        {
+          title: "📅 Neues Team-Meeting geplant",
+          color: 0x0099ff,
+          fields: [
+            { name: "Thema", value: topic },
+            { name: "Zeit", value: time },
+            { name: "Geplant von", value: user }
+          ],
+          timestamp: new Date().toISOString()
+        }
+      ]
+    };
+
+    // ➤ DEIN MEETING-WEBHOOK-LINK EINTRAGEN!
+    const meetingWebhookURL = "https://discord.com/api/webhooks/1400622177732136991/ysqu2zurdG1xbQ1t12mslOOH5OFCzLwD9bpBPoD6qZtmqFI07fGzF4xw33qPc0et7Q-I";
+
+    fetch(meetingWebhookURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(meetingPayload)
+    })
+    .then(res => {
+      if (res.ok) {
+        status.textContent = "✅ Meeting wurde gesendet!";
+        status.className = "success";
+        document.getElementById("meeting-topic").value = "";
+        document.getElementById("meeting-time").value = "";
+      } else {
+        throw new Error("Webhook-Fehler");
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      status.textContent = "⚠️ Fehler beim Senden!";
+      status.className = "error";
     });
   }
 </script>
-
 </body>
 </html>
