@@ -4,129 +4,171 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Team Dashboard</title>
-  <style>
-    :root {
-      --bg-dark: #121212;
-      --bg-light: #f5f5f5;
-      --text-dark: #fff;
-      --text-light: #000;
-      --primary: #00aaff;
-      --secondary: #1f1f1f;
-      --card-dark: #1a1a1a;
-      --card-light: #ffffff;
-    }
+   <style>
+  :root {
+    --bg-dark: #0e0e10;
+    --bg-light: #f5f5f5;
+    --text-dark: #fff;
+    --text-light: #000;
+    --primary: #3ea6ff;
+    --secondary: #1c1c1e;
+    --card-dark: #1f1f23;
+    --card-light: #ffffff;
+    --radius: 12px;
+  }
 
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: var(--bg-dark);
-      color: var(--text-dark);
-      transition: all 0.3s ease;
-    }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
 
-    header {
-      background-color: var(--secondary);
-      padding: 20px;
-      text-align: center;
-    }
+  header {
+    background-color: var(--secondary);
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
 
-    .container {
-      padding: 20px;
-    }
+  #auth header {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius);
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 40px 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  }
 
-    section {
-      background-color: var(--card-dark);
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
+  h1, h2 {
+    margin-top: 0;
+    font-weight: 600;
+  }
 
-    h1, h2 {
-      margin-top: 0;
-    }
+  .container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+  }
 
-    ul {
-      list-style: none;
-      padding: 0;
-    }
+  section {
+    background-color: var(--card-dark);
+    padding: 24px;
+    border-radius: var(--radius);
+    margin-bottom: 30px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+  }
 
-    li {
-      margin-bottom: 10px;
-    }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
 
-    input, button, select {
-      display: block;
-      margin: 10px auto;
-      padding: 12px;
-      width: 90%;
-      max-width: 300px;
-      border-radius: 8px;
-      border: none;
-      font-size: 1em;
-    }
+  li {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+  }
 
-    input {
-      background-color: #eee;
-    }
+  input, button, select {
+    display: block;
+    margin: 12px auto;
+    padding: 14px;
+    width: 100%;
+    max-width: 320px;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1em;
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--text-dark);
+    transition: 0.2s ease;
+  }
 
-    button {
-      background-color: var(--primary);
-      color: white;
-      cursor: pointer;
-    }
+  input::placeholder, select::placeholder {
+    color: #aaa;
+  }
 
-    button:hover {
-      opacity: 0.9;
-    }
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    background-color: rgba(255, 255, 255, 0.15);
+  }
 
-    input:focus, select:focus {
-      outline: 2px solid var(--primary);
-      background-color: #fff;
-    }
+  button {
+    background: var(--primary);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s ease;
+  }
 
-    section h2 {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+  button:hover {
+    background: #2894e0;
+    transform: scale(1.02);
+  }
 
-    button:active {
-      transform: scale(0.98);
-    }
+  button:active {
+    transform: scale(0.98);
+  }
 
-    .success {
-      color: limegreen;
-    }
+  #dashboard { display: none; }
 
-    .error {
-      color: red;
-    }
+  #error, #task-status, #meeting-status {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+  }
 
-    #dashboard { display: none; }
-    #error { color: red; text-align: center; }
-    .bereich { display: none; }
+  .error {
+    color: #ff5c5c;
+  }
 
-    .toggle-theme {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      background-color: var(--primary);
-      color: white;
-      padding: 8px 14px;
-      border-radius: 5px;
-      font-size: 0.9em;
-      cursor: pointer;
-      z-index: 100;
-    }
+  .success {
+    color: #4caf50;
+  }
 
-    @media (max-width: 600px) {
-      h1 { font-size: 1.5em; }
-      section { padding: 15px; }
-      button, input, select { width: 95%; }
-    }
-  </style>
+  .bereich { display: none; }
+
+  .toggle-theme {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 999;
+    transition: background-color 0.2s ease;
+  }
+
+  .toggle-theme:hover {
+    background-color: #2894e0;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 1.4em;
+    }
+
+    #auth header, section {
+      padding: 20px 15px;
+    }
+
+    button, input, select {
+      width: 95%;
+    }
+  }
+</style>
+
 </head>
 <body>
 
