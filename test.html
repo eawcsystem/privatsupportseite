@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Team Dashboard</title>
+  <style>
+    :root {
+      --bg-dark: #121212;
+      --bg-light: #f5f5f5;
+      --text-dark: #fff;
+      --text-light: #000;
+      --primary: #00aaff;
+      --secondary: #1f1f1f;
+      --card-dark: #1a1a1a;
+      --card-light: #ffffff;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      transition: all 0.3s ease;
+    }
+
+    header {
+      background-color: var(--secondary);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    section {
+      background-color: var(--card-dark);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    input, button, select {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      width: 90%;
+      max-width: 300px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
+    }
+
+    input {
+      background-color: #eee;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #dashboard { display: none; }
+    #error { color: red; text-align: center; }
+
+    .bereich { display: none; }
+
+    .toggle-theme {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: var(--primary);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 5px;
+      font-size: 0.9em;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.5em; }
+      section { padding: 15px; }
+      button, input, select { width: 95%; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="auth">
+  <header>
+    <h1>🔒 Team Dashboard Login</h1>
+    <input type="text" id="username" placeholder="Benutzername" />
+    <input type="password" id="password" placeholder="Passwort" />
+    <button onclick="checkLogin()">Einloggen</button>
+    <p id="error"></p>
+  </header>
+</div>
+
+<div id="dashboard">
+  <button class="toggle-theme" onclick="toggleTheme()">🌗 Wechsel Theme</button>
+
+  <header>
+    <h1>📊 Team Dashboard</h1>
+    <p>Willkommen <span id="user-display"></span>! Du siehst hier deine Teamfunktionen.</p>
+    <button onclick="logout()">🚪 Logout</button>
+  </header>
+
+  <div class="container">
+
+    <section class="bereich chef">
+      <h2>📥 Neue Bewerbungen</h2>
+      <ul><li>Keine neuen Bewerbungen</li></ul>
+    </section>
+
+    <section class="bereich team">
+      <h2>🗂 Aufgabe abschließen</h2>
+      <label for="task-select">Welche Aufgabe wurde erledigt?</label>
+      <select id="task-select">
+        <option value="">-- Bitte auswählen --</option>
+        <option value="Tickets beantworten">Tickets beantworten</option>
+        <option value="Letzte Besprechung dokumentieren">Letzte Besprechung dokumentieren</option>
+        <option value="Neues Mitglied geprüft">Neues Mitglied geprüft</option>
+      </select>
+
+      <label for="task-comment">Kommentar (optional):</label>
+      <input type="text" id="task-comment" placeholder="Kommentar zur Aufgabe..." />
+
+      <button onclick="abschliessen()">✅ Aufgabe abschließen</button>
+      <p id="task-status"></p>
+    </section>
+
+    <section class="bereich team">
+      <h2>👥 Teamliste</h2>
+      <ul>
+        <li>doge43 (Team)</li>
+        <li>mandalorian281 (Team)</li>
+        <li>mathias09144_45205 (Team)</li>
+      </ul>
+    </section>
+
+    <section class="bereich chef">
+      <h2>🔒 Admin & Chef Bereich</h2>
+      <ul>
+        <li>Servereinstellungen</li>
+        <li>Sicherheitsprotokolle</li>
+        <li>Blacklist verwalten</li>
+      </ul>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  const users = {
+    "MarcelCTG": { password: "MarcelsupChef2008", role: "chef" },
+    "gurke8574": { password: "alexchef25klesppe", role: "chef" },
+    "doge43": { password: "doge43team25dsjfor", role: "team" },
+    "mandalorian2811": { password: "mandalorian2811team25kssoen", role: "team" },
+    "mathias09144_45205": { password: "mathias09144_45205team25iejnsse", role: "team" }
+  };
+
+  function checkLogin() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const errorElem = document.getElementById("error");
+
+    if (users[username] && users[username].password === password) {
+      document.getElementById("auth").style.display = "none";
+      document.getElementById("dashboard").style.display = "block";
+      document.getElementById("user-display").textContent = username;
+
+      const role = users[username].role;
+      document.querySelectorAll(".bereich").forEach(section => {
+        section.style.display = "none";
+      });
+      document.querySelectorAll(`.bereich.${role}`).forEach(section => {
+        section.style.display = "block";
+      });
+      if (role === "chef") {
+        document.querySelectorAll(".bereich").forEach(section => section.style.display = "block");
+      }
+
+      errorElem.textContent = "";
+    } else {
+      errorElem.textContent = "Benutzername oder Passwort falsch!";
+    }
+  }
+
+  function logout() {
+    document.getElementById("auth").style.display = "block";
+    document.getElementById("dashboard").style.display = "none";
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("error").textContent = "";
+  }
+
+  function toggleTheme() {
+    const root = document.documentElement;
+    const isDark = getComputedStyle(root).getPropertyValue('--bg-dark').trim() === '#121212';
+
+    if (isDark) {
+      root.style.setProperty('--bg-dark', '#f5f5f5');
+      root.style.setProperty('--text-dark', '#000');
+      root.style.setProperty('--card-dark', '#ffffff');
+      root.style.setProperty('--secondary', '#e0e0e0');
+    } else {
+      root.style.setProperty('--bg-dark', '#121212');
+      root.style.setProperty('--text-dark', '#fff');
+      root.style.setProperty('--card-dark', '#1a1a1a');
+      root.style.setProperty('--secondary', '#1f1f1f');
+    }
+  }
+
+  function abschliessen() {
+    const selectedTask = document.getElementById("task-select").value;
+    const comment = document.getElementById("task-comment").value;
+    const statusElem = document.getElementById("task-status");
+    const username = document.getElementById("user-display").textContent;
+
+    if (!selectedTask) {
+      statusElem.textContent = "❗ Bitte wähle eine Aufgabe aus.";
+      statusElem.style.color = "orange";
+      return;
+    }
+
+    // ⛔ DEIN DISCORD WEBHOOK HIER EINFÜGEN:
+    const webhookURL = "https://discord.com/api/webhooks/HIER-DEIN-WEBHOOK";
+
+    const payload = {
+      embeds: [
+        {
+          title: "✅ Aufgabe erledigt",
+          color: 0x00ff66,
+          fields: [
+            { name: "Erledigt von", value: username, inline: true },
+            { name: "Aufgabe", value: selectedTask, inline: true },
+            { name: "Kommentar", value: comment || "Kein Kommentar" }
+          ],
+          timestamp: new Date().toISOString()
+        }
+      ]
+    };
+
+    fetch(webhookURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+    .then(res => {
+      if (res.ok) {
+        statusElem.textContent = "✅ Aufgabe wurde gemeldet!";
+        statusElem.style.color = "green";
+        document.getElementById("task-select").value = "";
+        document.getElementById("task-comment").value = "";
+      } else {
+        throw new Error("Webhook-Fehler");
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      statusElem.textContent = "⚠️ Fehler beim Senden!";
+      statusElem.style.color = "red";
+    });
+  }
+</script>
+
+</body>
+</html>
