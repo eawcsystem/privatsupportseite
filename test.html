@@ -25,10 +25,66 @@
       transition: all 0.3s ease;
     }
 
-    header {
-      background-color: var(--secondary);
-      padding: 20px;
+    /* Modernes Login Card Design */
+    #auth {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .login-card {
+      background-color: var(--card-dark);
+      max-width: 400px;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
       text-align: center;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .login-card h1 {
+      margin-bottom: 20px;
+      font-size: 1.8em;
+      color: var(--primary);
+    }
+
+    .login-card input {
+      background-color: #2a2a2a;
+      color: white;
+      border: 1px solid #444;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      width: 100%;
+      transition: 0.3s;
+    }
+
+    .login-card input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background-color: #333;
+    }
+
+    .login-card button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      width: 100%;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .login-card button:hover {
+      background-color: #008fcc;
+    }
+
+    #error {
+      color: red;
+      margin-top: 10px;
     }
 
     .container {
@@ -82,7 +138,6 @@
     }
 
     #dashboard { display: none; }
-    #error { color: red; text-align: center; }
 
     .bereich { display: none; }
 
@@ -104,24 +159,29 @@
       section { padding: 15px; }
       button, input, select { width: 95%; }
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
 
 <div id="auth">
-  <header>
+  <div class="login-card">
     <h1>🔒 Team Dashboard Login</h1>
     <input type="text" id="username" placeholder="Benutzername" />
     <input type="password" id="password" placeholder="Passwort" />
-    <button onclick="checkLogin()">Einloggen</button>
+    <button onclick="checkLogin()">🚀 Einloggen</button>
     <p id="error"></p>
-  </header>
+  </div>
 </div>
 
 <div id="dashboard">
   <button class="toggle-theme" onclick="toggleTheme()">🌗 Wechsel Theme</button>
 
-  <header>
+  <header style="text-align:center; background-color: var(--secondary); padding: 20px;">
     <h1>📊 Team Dashboard</h1>
     <p>Willkommen <span id="user-display"></span>! Du siehst hier deine Teamfunktionen.</p>
     <button onclick="logout()">🚪 Logout</button>
@@ -204,12 +264,12 @@
 
       errorElem.textContent = "";
     } else {
-      errorElem.textContent = "Benutzername oder Passwort falsch!";
+      errorElem.textContent = "❌ Benutzername oder Passwort falsch!";
     }
   }
 
   function logout() {
-    document.getElementById("auth").style.display = "block";
+    document.getElementById("auth").style.display = "flex";
     document.getElementById("dashboard").style.display = "none";
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
@@ -245,7 +305,6 @@
       return;
     }
 
-    // ⛔ DEIN DISCORD WEBHOOK HIER EINFÜGEN:
     const webhookURL = "https://discord.com/api/webhooks/1400610009720553472/iSq183mNu_o_o58oMtqg-i7vPvhnNimhP7e-LMBL7d0MkTGRqdiLo8oBKpaXA7OAMBzs";
 
     const payload = {
