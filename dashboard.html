@@ -5,78 +5,104 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Team Dashboard</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      color: #fff;
-      margin: 0; padding: 0;
+    :root {
+      --bg-dark: #121212;
+      --bg-light: #f5f5f5;
+      --text-dark: #fff;
+      --text-light: #000;
+      --primary: #00aaff;
+      --secondary: #1f1f1f;
+      --card-dark: #1a1a1a;
+      --card-light: #ffffff;
     }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      transition: all 0.3s ease;
+    }
+
     header {
-      background-color: #1f1f1f;
+      background-color: var(--secondary);
       padding: 20px;
       text-align: center;
     }
-    h1 {
-      margin: 0;
-    }
+
     .container {
       padding: 20px;
     }
+
     section {
-      margin-bottom: 30px;
-      background-color: #1a1a1a;
+      background-color: var(--card-dark);
       padding: 20px;
-      border-radius: 10px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
-    section h2 {
+
+    h1, h2 {
       margin-top: 0;
     }
+
     ul {
       list-style: none;
-      padding-left: 0;
+      padding: 0;
     }
+
     li {
       margin-bottom: 10px;
     }
-    input {
-      padding: 10px;
-      width: 200px;
-      margin-top: 10px;
+
+    input, button {
       display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    button {
-      padding: 10px;
-      background-color: #00aaff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      display: block;
-      margin: 15px auto;
-      width: 220px;
-    }
-    #dashboard {
-      display: none;
-    }
-    #error {
-      color: red;
-      text-align: center;
-    }
-    /* Sichtbarkeit je Rolle */
-    .admin-only, .leader-only, .support-only {
-      display: none;
-    }
-    /* Beispiel Live-Chat Box */
-    #live-chat {
-      background-color: #222;
-      padding: 15px;
+      margin: 10px auto;
+      padding: 12px;
+      width: 90%;
+      max-width: 300px;
       border-radius: 8px;
-      max-height: 200px;
-      overflow-y: auto;
+      border: none;
+      font-size: 1em;
+    }
+
+    input {
+      background-color: #eee;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #dashboard { display: none; }
+    #error { color: red; text-align: center; }
+
+    .bereich { display: none; }
+
+    .toggle-theme {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background-color: var(--primary);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 5px;
       font-size: 0.9em;
-      border: 1px solid #444;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.5em; }
+      section { padding: 15px; }
+      button, input { width: 95%; }
     }
   </style>
 </head>
@@ -93,73 +119,56 @@
 </div>
 
 <div id="dashboard">
+  <button class="toggle-theme" onclick="toggleTheme()">🌗 Wechsel Theme</button>
+
   <header>
     <h1>📊 Team Dashboard</h1>
-    <p>Willkommen <span id="user-display"></span>! Hier siehst du deine Aufgaben und Infos.</p>
-    <button onclick="logout()">Logout</button>
+    <p>Willkommen <span id="user-display"></span>! Du siehst hier deine Teamfunktionen.</p>
+    <button onclick="logout()">🚪 Logout</button>
   </header>
 
   <div class="container">
 
-    <section class="admin-only">
-      <h2>🔧 Admin Bereich</h2>
-      <p>Nur für Admins sichtbar.</p>
-    </section>
-
-    <section class="leader-only">
-      <h2>⚙️ Projektleitung Bereich</h2>
-      <p>Nur für Projektleiter sichtbar.</p>
-    </section>
-
-    <section class="support-only">
-      <h2>🎧 Support Bereich</h2>
-      <ul>
-        <li>Neue Tickets: 5</li>
-        <li>Offene Anfragen: 3</li>
-      </ul>
-    </section>
-
-    <section>
+    <section class="bereich team">
       <h2>📥 Neue Bewerbungen</h2>
-      <ul>
-        <li>Max#1234 – „Ich möchte als Supporter helfen.“</li>
-      </ul>
+      <ul><li>Keine neuen Bewerbungen</li></ul>
     </section>
 
-    <section>
+    <section class="bereich team">
       <h2>🗂 Aufgaben</h2>
       <ul>
-        <li>[ ] Bewerbungen prüfen</li>
-        <li>[x] Blacklist aktualisieren</li>
+        <li>[ ] Tickets beantworten</li>
+        <li>[x] Letzte Besprechung dokumentieren</li>
       </ul>
     </section>
 
-    <section>
-      <h2>👥 Teammitglieder</h2>
+    <section class="bereich team">
+      <h2>👥 Teamliste</h2>
       <ul>
-        <li>doge43 (Admin)</li>
-        <li>mandalorian281 (Projektleiter)</li>
-        <li>mathias09144_45205 (Support)</li>
+        <li>doge43 (Team)</li>
+        <li>mandalorian281 (Team)</li>
+        <li>mathias09144_45205 (Team)</li>
       </ul>
     </section>
 
-    <section>
-      <h2>💬 Live Chat (Webhook)</h2>
-      <div id="live-chat">
-        <!-- Beispiel-Messages -->
-        <p><strong>SupportBot:</strong> Neues Ticket eingegangen #1025</p>
-        <p><strong>doge43:</strong> Bitte alle Logs prüfen.</p>
-      </div>
+    <section class="bereich chef">
+      <h2>🔒 Admin & Chef Bereich</h2>
+      <ul>
+        <li>Servereinstellungen</li>
+        <li>Sicherheitsprotokolle</li>
+        <li>Blacklist verwalten</li>
+      </ul>
     </section>
+
   </div>
 </div>
 
 <script>
-  // Beispiel-Benutzer (in echt vom Backend)
   const users = {
-    "doge43": {password: "adminpass", role: "admin"},
-    "mandalorian281": {password: "leadpass", role: "leader"},
-    "mathias09144_45205": {password: "supportpass", role: "support"}
+    "MarcelCTG": { password: "chefsafe", role: "chef" },
+    "doge43": { password: "teampass", role: "team" },
+    "mandalorian281": { password: "teampass", role: "team" },
+    "mathias09144_45205": { password: "teampass", role: "team" }
   };
 
   function checkLogin() {
@@ -167,29 +176,51 @@
     const password = document.getElementById("password").value.trim();
     const errorElem = document.getElementById("error");
 
-    if(users[username] && users[username].password === password){
-      // Login erfolgreich
-      errorElem.textContent = "";
+    if (users[username] && users[username].password === password) {
       document.getElementById("auth").style.display = "none";
       document.getElementById("dashboard").style.display = "block";
       document.getElementById("user-display").textContent = username;
 
-      // Rolle ausblenden/anzeigen
-      let role = users[username].role;
-      document.querySelectorAll(".admin-only").forEach(el => el.style.display = (role==="admin") ? "block" : "none");
-      document.querySelectorAll(".leader-only").forEach(el => el.style.display = (role==="leader") ? "block" : "none");
-      document.querySelectorAll(".support-only").forEach(el => el.style.display = (role==="support") ? "block" : "none");
+      const role = users[username].role;
+      document.querySelectorAll(".bereich").forEach(section => {
+        section.style.display = "none";
+      });
+      document.querySelectorAll(`.bereich.${role}`).forEach(section => {
+        section.style.display = "block";
+      });
+      if (role === "chef") {
+        document.querySelectorAll(".bereich").forEach(section => section.style.display = "block");
+      }
+
+      errorElem.textContent = "";
     } else {
       errorElem.textContent = "Benutzername oder Passwort falsch!";
     }
   }
 
-  function logout(){
+  function logout() {
     document.getElementById("auth").style.display = "block";
     document.getElementById("dashboard").style.display = "none";
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
     document.getElementById("error").textContent = "";
+  }
+
+  function toggleTheme() {
+    const root = document.documentElement;
+    const isDark = getComputedStyle(root).getPropertyValue('--bg-dark').trim() === '#121212';
+    
+    if (isDark) {
+      root.style.setProperty('--bg-dark', '#f5f5f5');
+      root.style.setProperty('--text-dark', '#000');
+      root.style.setProperty('--card-dark', '#ffffff');
+      root.style.setProperty('--secondary', '#e0e0e0');
+    } else {
+      root.style.setProperty('--bg-dark', '#121212');
+      root.style.setProperty('--text-dark', '#fff');
+      root.style.setProperty('--card-dark', '#1a1a1a');
+      root.style.setProperty('--secondary', '#1f1f1f');
+    }
   }
 </script>
 
