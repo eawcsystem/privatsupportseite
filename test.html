@@ -1,348 +1,352 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Team Dashboard</title>
-  <style>
-    :root {
-      --bg-dark: #0e0e10;
-      --bg-light: #f5f5f5;
-      --text-dark: #fff;
-      --text-light: #000;
-      --primary: #3ea6ff;
-      --secondary: #1c1c1e;
-      --card-dark: #1f1f23;
-      --card-light: #ffffff;
-      --radius: 12px;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Modernes Team Dashboard</title>
+<style>
+  /* Reset & Basics */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; padding: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: linear-gradient(135deg, #2e3a59, #1c253c);
+    color: #eee;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+  h1, h2 {
+    margin: 0 0 1rem 0;
+    font-weight: 700;
+  }
+  input, select, button {
+    font-family: inherit;
+    font-size: 1rem;
+  }
+  button {
+    cursor: pointer;
+    border: none;
+    background: #4f98ca;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgb(79 152 202 / 0.4);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  button:hover {
+    background: #367bb5;
+    transform: translateY(-2px);
+  }
+  button:active {
+    transform: translateY(0);
+  }
+  input, select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: none;
+    margin-bottom: 1rem;
+    background: #405274;
+    color: #f0f0f0;
+    transition: background-color 0.3s ease;
+  }
+  input::placeholder, select option {
+    color: #bbb;
+  }
+  input:focus, select:focus {
+    outline: 2px solid #4f98ca;
+    background: #516a9c;
+  }
 
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: var(--bg-dark);
-      color: var(--text-dark);
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
+  /* Container */
+  #auth, #dashboard {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(20, 30, 50, 0.8);
+    padding: 2rem 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgb(10 30 70 / 0.7);
+  }
 
-    header {
-      background-color: var(--secondary);
-      padding: 30px 20px;
-      text-align: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
+  #auth header {
+    text-align: center;
+  }
+  #auth header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: #a3d2f2;
+  }
+  #error {
+    color: #ff6b6b;
+    font-weight: 600;
+    text-align: center;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+    min-height: 1.2rem;
+  }
 
-    #auth header {
-      background: rgba(255, 255, 255, 0.02);
-      backdrop-filter: blur(8px);
-      border-radius: var(--radius);
-      max-width: 400px;
-      margin: 60px auto;
-      padding: 40px 30px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-    }
+  /* Dashboard Header */
+  #dashboard header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  #dashboard header h1 {
+    font-size: 2rem;
+    color: #71b3e7;
+  }
+  #dashboard header button {
+    background: #e94f37;
+    box-shadow: 0 4px 12px rgb(233 79 55 / 0.6);
+  }
+  #dashboard header button:hover {
+    background: #c43d28;
+  }
 
-    h1, h2 {
-      margin-top: 0;
-      font-weight: 600;
-    }
+  /* Sections */
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  section {
+    background: #344a72;
+    padding: 1.8rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.35);
+    transition: background-color 0.3s ease;
+  }
+  section h2 {
+    margin-bottom: 1rem;
+    color: #a3d2f2;
+  }
+  ul {
+    padding-left: 1.2rem;
+  }
+  ul li {
+    margin-bottom: 0.7rem;
+    font-weight: 500;
+    color: #d2dcea;
+  }
 
-    .container {
-      padding: 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
+  /* Task section */
+  #task-status, #meeting-status {
+    margin-top: 0.7rem;
+    font-weight: 600;
+    min-height: 1.3rem;
+  }
+  .error {
+    color: #ff6b6b;
+  }
+  .success {
+    color: #7be495;
+  }
 
-    section {
-      background-color: var(--card-dark);
-      padding: 24px;
-      border-radius: var(--radius);
-      margin-bottom: 30px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-      transition: background-color 0.3s ease;
-    }
+  /* Role based visibility */
+  .bereich {
+    display: none;
+  }
 
-    ul {
-      list-style: none;
-      padding: 0;
-    }
+  /* Theme toggle button */
+  .toggle-theme {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: #71b3e7;
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgb(113 179 231 / 0.6);
+    user-select: none;
+  }
+  .toggle-theme:hover {
+    background: #5093d1;
+  }
 
-    li {
-      margin-bottom: 10px;
-      padding: 8px 12px;
-      background-color: rgba(255, 255, 255, 0.05);
-      border-radius: 6px;
-    }
-
-    input, button, select {
-      display: block;
-      margin: 12px auto;
-      padding: 14px;
-      width: 100%;
-      max-width: 320px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 1em;
-      background-color: rgba(255, 255, 255, 0.08);
-      color: var(--text-dark);
-      transition: 0.2s ease;
-    }
-
-    input::placeholder, select::placeholder {
-      color: #aaa;
-    }
-
-    input:focus, select:focus {
-      outline: none;
-      border-color: var(--primary);
-      background-color: rgba(255, 255, 255, 0.15);
-    }
-
-    button {
-      background: var(--primary);
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      border: none;
-      transition: all 0.25s ease;
-    }
-
-    button:hover {
-      background: #2894e0;
-      transform: scale(1.02);
-    }
-
-    button:active {
-      transform: scale(0.98);
-    }
-
-    #dashboard { display: none; }
-
-    #error, #task-status, #meeting-status {
-      text-align: center;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-
-    .error {
-      color: #ff5c5c;
-    }
-
-    .success {
-      color: #4caf50;
-    }
-
-    .bereich { display: none; }
-
-    .toggle-theme {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      background-color: var(--primary);
-      color: white;
-      padding: 10px 16px;
-      border-radius: 6px;
-      font-size: 0.9em;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      z-index: 999;
-      transition: background-color 0.2s ease;
-    }
-
-    .toggle-theme:hover {
-      background-color: #2894e0;
-    }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.4em;
-      }
-
-      #auth header, section {
-        padding: 20px 15px;
-      }
-
-      button, input, select {
-        width: 95%;
-      }
-    }
-  </style>
+  /* Responsive */
+  @media (max-width: 480px) {
+    body {
+      padding: 1rem;
+    }
+    #auth, #dashboard {
+      padding: 1.5rem 2rem;
+    }
+    #dashboard header {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .toggle-theme {
+      top: auto;
+      bottom: 1.5rem;
+      right: 1.5rem;
+    }
+  }
+</style>
 </head>
 <body>
 
 <div id="auth">
-  <header>
-    <h1>🔒 Team Dashboard Login</h1>
-    <input type="text" id="username" placeholder="Benutzername" />
-    <input type="password" id="password" placeholder="Passwort" />
-    <button onclick="checkLogin()">Einloggen</button>
-    <p id="error"></p>
-  </header>
+  <header>
+    <h1>🔒 Team Dashboard Login</h1>
+    <input type="text" id="username" placeholder="Benutzername" autocomplete="username" />
+    <input type="password" id="password" placeholder="Passwort" autocomplete="current-password" />
+    <button onclick="checkLogin()">Einloggen</button>
+    <p id="error"></p>
+  </header>
 </div>
 
-<div id="dashboard">
-  <button class="toggle-theme" onclick="toggleTheme()">🌗 Wechsel Theme</button>
+<div id="dashboard" style="display:none;">
+  <button class="toggle-theme" onclick="toggleTheme()">🌗 Theme wechseln</button>
+  <header>
+    <h1>📊 Team Dashboard</h1>
+    <span>Willkommen <strong id="user-display"></strong>!</span>
+    <button onclick="logout()">🚪 Logout</button>
+  </header>
+  <div class="container">
 
-  <header>
-    <h1>📊 Team Dashboard</h1>
-    <p>Willkommen <span id="user-display"></span>! Du siehst hier deine Teamfunktionen.</p>
-    <button onclick="logout()">🚪 Logout</button>
-  </header>
+    <section class="bereich chef">
+      <h2>📥 Neue Bewerbungen</h2>
+      <ul><li>Keine neuen Bewerbungen</li></ul>
+    </section>
 
-  <div class="container">
+    <section class="bereich team">
+      <h2>🗂 Aufgabe abschließen</h2>
+      <select id="task-select" aria-label="Aufgabe auswählen">
+        <option value="">-- Bitte auswählen --</option>
+        <option value="Tickets beantworten">Tickets beantworten</option>
+        <option value="Letzte Besprechung dokumentieren">Letzte Besprechung dokumentieren</option>
+        <option value="Neues Mitglied geprüft">Neues Mitglied geprüft</option>
+      </select>
+      <input type="text" id="task-comment" placeholder="Kommentar (optional)" />
+      <button onclick="abschliessen()">✅ Aufgabe abschließen</button>
+      <p id="task-status"></p>
+    </section>
 
-    <section class="bereich chef">
-      <h2>📥 Neue Bewerbungen</h2>
-      <ul><li>Keine neuen Bewerbungen</li></ul>
-    </section>
+    <section class="bereich team">
+      <h2>👥 Teamliste</h2>
+      <ul>
+        <li>doge43 (Team)</li>
+        <li>mandalorian281 (Team)</li>
+        <li>mathias09144_45205 (Team)</li>
+      </ul>
+    </section>
 
-    <section class="bereich team">
-      <h2>🗂 Aufgabe abschließen</h2>
-      <label for="task-select">Welche Aufgabe wurde erledigt?</label>
-      <select id="task-select">
-        <option value="">-- Bitte auswählen --</option>
-        <option value="Tickets beantworten">Tickets beantworten</option>
-        <option value="Letzte Besprechung dokumentieren">Letzte Besprechung dokumentieren</option>
-        <option value="Neues Mitglied geprüft">Neues Mitglied geprüft</option>
-      </select>
-      <label for="task-comment">Kommentar (optional):</label>
-      <input type="text" id="task-comment" placeholder="Kommentar zur Aufgabe..." />
-      <button onclick="abschliessen()">✅ Aufgabe abschließen</button>
-      <p id="task-status"></p>
-    </section>
+    <section class="bereich chef">
+      <h2>🔒 Admin & Chef Bereich</h2>
+      <ul>
+        <li>Servereinstellungen</li>
+        <li>Sicherheitsprotokolle</li>
+        <li>Blacklist verwalten</li>
+      </ul>
+    </section>
 
-    <section class="bereich team">
-      <h2>👥 Teamliste</h2>
-      <ul>
-        <li>doge43 (Team)</li>
-        <li>mandalorian281 (Team)</li>
-        <li>mathias09144_45205 (Team)</li>
-      </ul>
-    </section>
+    <section class="bereich chef">
+      <h2>📅 Team-Meeting planen</h2>
+      <input type="text" id="meeting-topic" placeholder="Thema des Meetings" />
+      <input type="text" id="meeting-time" placeholder="Zeitpunkt (z.B. Freitag, 18:00 Uhr)" />
+      <button onclick="meetingWebhook()">📨 An Discord senden</button>
+      <p id="meeting-status"></p>
+    </section>
 
-    <section class="bereich chef">
-      <h2>🔒 Admin & Chef Bereich</h2>
-      <ul>
-        <li>Servereinstellungen</li>
-        <li>Sicherheitsprotokolle</li>
-        <li>Blacklist verwalten</li>
-      </ul>
-    </section>
-
-    <section class="bereich chef">
-      <h2>📅 Team-Meeting planen</h2>
-      <label for="meeting-topic">Thema des Meetings:</label>
-      <input type="text" id="meeting-topic" placeholder="z. B. Wochenplanung oder Sicherheitscheck" />
-      <label for="meeting-time">Zeitpunkt:</label>
-      <input type="text" id="meeting-time" placeholder="z. B. Freitag, 18:00 Uhr" />
-      <button onclick="meetingWebhook()">📨 An Discord senden</button>
-      <p id="meeting-status"></p>
-    </section>
-
-  </div>
+  </div>
 </div>
 
 <script>
-  const users = {
-    "MarcelCTG": { password: "MarcelsupChef2008", role: "chef" },
-    "gurke8574": { password: "alexchef25klesppe", role: "chef" },
-    "doge43": { password: "doge43team25dsjfor", role: "team" },
-    "mandalorian2811": { password: "mandalorian2811team25kssoen", role: "team" },
-    "mathias09144_45205": { password: "mathias09144_45205team25iejnsse", role: "team" }
-  };
+  const users = {
+    "MarcelCTG": { password: "MarcelsupChef2008", role: "chef" },
+    "gurke8574": { password: "alexchef25klesppe", role: "chef" },
+    "doge43": { password: "doge43team25dsjfor", role: "team" },
+    "mandalorian2811": { password: "mandalorian2811team25kssoen", role: "team" },
+    "mathias09144_45205": { password: "mathias09144_45205team25iejnsse", role: "team" }
+  };
 
-  function checkLogin() {
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const errorElem = document.getElementById("error");
+  function checkLogin() {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const errorElem = document.getElementById("error");
 
-    if (users[username] && users[username].password === password) {
-      document.getElementById("auth").style.display = "none";
-      document.getElementById("dashboard").style.display = "block";
-      document.getElementById("user-display").textContent = username;
+    if(users[username] && users[username].password === password) {
+      document.getElementById("auth").style.display = "none";
+      document.getElementById("dashboard").style.display = "block";
+      document.getElementById("user-display").textContent = username;
 
-      const role = users[username].role;
-      document.querySelectorAll(".bereich").forEach(section => {
-        section.style.display = "none";
-      });
-      document.querySelectorAll(`.bereich.${role}`).forEach(section => {
-        section.style.display = "block";
-      });
-      if (role === "chef") {
-        document.querySelectorAll(".bereich").forEach(section => section.style.display = "block");
-      }
+      const role = users[username].role;
+      document.querySelectorAll(".bereich").forEach(s => s.style.display = "none");
+      if(role === "chef") {
+        document.querySelectorAll(".bereich").forEach(s => s.style.display = "block");
+      } else {
+        document.querySelectorAll(`.bereich.${role}`).forEach(s => s.style.display = "block");
+      }
 
-      errorElem.textContent = "";
-    } else {
-      errorElem.textContent = "Benutzername oder Passwort falsch!";
-    }
-  }
+      errorElem.textContent = "";
+    } else {
+      errorElem.textContent = "Benutzername oder Passwort falsch!";
+    }
+  }
 
-  function logout() {
-    document.getElementById("auth").style.display = "block";
-    document.getElementById("dashboard").style.display = "none";
-    document.getElementById("username").value = "";
-    document.getElementById("password").value = "";
-    document.getElementById("error").textContent = "";
-  }
+  function logout() {
+    document.getElementById("auth").style.display = "block";
+    document.getElementById("dashboard").style.display = "none";
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("error").textContent = "";
+  }
 
-  function toggleTheme() {
-    const root = document.documentElement;
-    const isDark = getComputedStyle(root).getPropertyValue('--bg-dark').trim() === '#121212';
+  function toggleTheme() {
+    const body = document.body;
+    if(body.dataset.theme === "light") {
+      body.style.background = "linear-gradient(135deg, #2e3a59, #1c253c)";
+      body.style.color = "#eee";
+      body.dataset.theme = "dark";
+    } else {
+      body.style.background = "#f0f4f8";
+      body.style.color = "#222";
+      body.dataset.theme = "light";
+    }
+  }
 
-    if (isDark) {
-      root.style.setProperty('--bg-dark', '#f5f5f5');
-      root.style.setProperty('--text-dark', '#000');
-      root.style.setProperty('--card-dark', '#ffffff');
-      root.style.setProperty('--secondary', '#e0e0e0');
-    } else {
-      root.style.setProperty('--bg-dark', '#121212');
-      root.style.setProperty('--text-dark', '#fff');
-      root.style.setProperty('--card-dark', '#1a1a1a');
-      root.style.setProperty('--secondary', '#1f1f1f');
-    }
-  }
+  function abschliessen() {
+    const task = document.getElementById("task-select").value;
+    const comment = document.getElementById("task-comment").value.trim();
+    const statusElem = document.getElementById("task-status");
+    const username = document.getElementById("user-display").textContent;
 
-  function abschliessen() {
-    const selectedTask = document.getElementById("task-select").value;
-    const comment = document.getElementById("task-comment").value;
-    const statusElem = document.getElementById("task-status");
-    const username = document.getElementById("user-display").textContent;
+    if(!task) {
+      statusElem.textContent = "❗ Bitte wähle eine Aufgabe aus!";
+      statusElem.className = "error";
+      return;
+    }
+    statusElem.textContent = `✅ Aufgabe '${task}' von ${username} abgeschlossen. Kommentar: ${comment || "Kein Kommentar"}`;
+    statusElem.className = "success";
 
-    if (!selectedTask) {
-      statusElem.textContent = "❗ Bitte wähle eine Aufgabe aus!";
-      statusElem.className = "error";
-      return;
-    }
+    document.getElementById("task-select").value = "";
+    document.getElementById("task-comment").value = "";
+  }
 
-    // Simuliere Erfolg
-    statusElem.textContent = `✅ Aufgabe '${selectedTask}' von ${username} abgeschlossen. Kommentar: ${comment || "Kein Kommentar"}`;
-    statusElem.className = "success";
+  function meetingWebhook() {
+    const topic = document.getElementById("meeting-topic").value.trim();
+    const time = document.getElementById("meeting-time").value.trim();
+    const statusElem = document.getElementById("meeting-status");
 
-    // Zurücksetzen
-    document.getElementById("task-select").value = "";
-    document.getElementById("task-comment").value = "";
-  }
+    if(!topic || !time) {
+      statusElem.textContent = "❗ Bitte Thema und Zeitpunkt angeben!";
+      statusElem.className = "error";
+      return;
+    }
 
-  function meetingWebhook() {
-    const topic = document.getElementById("meeting-topic").value.trim();
-    const time = document.getElementById("meeting-time").value.trim();
-    const statusElem = document.getElementById("meeting-status");
+    statusElem.textContent = `📨 Meeting '${topic}' für '${time}' wurde an Discord gesendet.`;
+    statusElem.className = "success";
 
-    if (!topic || !time) {
-      statusElem.textContent = "❗ Bitte Thema und Zeitpunkt angeben!";
-      statusElem.className = "error";
-      return;
-    }
-
-    // Simuliere Webhook-Aufruf
-    statusElem.textContent = `📨 Meeting '${topic}' für '${time}' wurde an Discord gesendet.`;
-    statusElem.className = "success";
-
-    document.getElementById("meeting-topic").value = "";
-    document.getElementById("meeting-time").value = "";
-  }
+    document.getElementById("meeting-topic").value = "";
+    document.getElementById("meeting-time").value = "";
+  }
 </script>
 
 </body>
