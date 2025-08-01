@@ -1,194 +1,159 @@
-<!DOCTYPE html>
+   <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Modernes Team Dashboard</title>
-<style>
-  /* Reset & Basics */
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    margin: 0; padding: 0;
-    font-family: 'Inter', system-ui, sans-serif;
-    background: linear-gradient(135deg, #2e3a59, #1c253c);
-    color: #eee;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-  }
-  h1, h2 {
-    margin: 0 0 1rem 0;
-    font-weight: 700;
-  }
-  input, select, button {
-    font-family: inherit;
-    font-size: 1rem;
-  }
-  button {
-    cursor: pointer;
-    border: none;
-    background: #4f98ca;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgb(79 152 202 / 0.4);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  button:hover {
-    background: #367bb5;
-    transform: translateY(-2px);
-  }
-  button:active {
-    transform: translateY(0);
-  }
-  input, select {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border-radius: 12px;
-    border: none;
-    margin-bottom: 1rem;
-    background: #405274;
-    color: #f0f0f0;
-    transition: background-color 0.3s ease;
-  }
-  input::placeholder, select option {
-    color: #bbb;
-  }
-  input:focus, select:focus {
-    outline: 2px solid #4f98ca;
-    background: #516a9c;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Team Dashboard</title>
+  <style>
+    :root {
+      --bg-dark: #121212;
+      --bg-light: #f5f5f5;
+      --text-dark: #fff;
+      --text-light: #000;
+      --primary: #00aaff;
+      --secondary: #1f1f1f;
+      --card-dark: #1a1a1a;
+      --card-light: #ffffff;
+    }
 
-  /* Container */
-  #auth, #dashboard {
-    width: 100%;
-    max-width: 420px;
-    background: rgba(20, 30, 50, 0.8);
-    padding: 2rem 2.5rem;
-    border-radius: 16px;
-    box-shadow: 0 12px 30px rgb(10 30 70 / 0.7);
-  }
-
-  #auth header {
-    text-align: center;
-  }
-  #auth header h1 {
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
-    color: #a3d2f2;
-  }
-  #error {
-    color: #ff6b6b;
-    font-weight: 600;
-    text-align: center;
-    margin-top: -0.5rem;
-    margin-bottom: 1rem;
-    min-height: 1.2rem;
-  }
-
-  /* Dashboard Header */
-  #dashboard header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-  }
-  #dashboard header h1 {
-    font-size: 2rem;
-    color: #71b3e7;
-  }
-  #dashboard header button {
-    background: #e94f37;
-    box-shadow: 0 4px 12px rgb(233 79 55 / 0.6);
-  }
-  #dashboard header button:hover {
-    background: #c43d28;
-  }
-
-  /* Sections */
-  .container {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-  section {
-    background: #344a72;
-    padding: 1.8rem 2rem;
-    border-radius: 20px;
-    box-shadow: 0 8px 24px rgb(0 0 0 / 0.35);
-    transition: background-color 0.3s ease;
-  }
-  section h2 {
-    margin-bottom: 1rem;
-    color: #a3d2f2;
-  }
-  ul {
-    padding-left: 1.2rem;
-  }
-  ul li {
-    margin-bottom: 0.7rem;
-    font-weight: 500;
-    color: #d2dcea;
-  }
-
-  /* Task section */
-  #task-status, #meeting-status {
-    margin-top: 0.7rem;
-    font-weight: 600;
-    min-height: 1.3rem;
-  }
-  .error {
-    color: #ff6b6b;
-  }
-  .success {
-    color: #7be495;
-  }
-
-  /* Role based visibility */
-  .bereich {
-    display: none;
-  }
-
-  /* Theme toggle button */
-  .toggle-theme {
-    position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
-    background: #71b3e7;
-    padding: 0.6rem 1.2rem;
-    border-radius: 12px;
-    font-weight: 600;
-    box-shadow: 0 6px 18px rgb(113 179 231 / 0.6);
-    user-select: none;
-  }
-  .toggle-theme:hover {
-    background: #5093d1;
-  }
-
-  /* Responsive */
-  @media (max-width: 480px) {
     body {
-      padding: 1rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      transition: all 0.3s ease;
     }
-    #auth, #dashboard {
-      padding: 1.5rem 2rem;
+
+    header {
+      background-color: var(--secondary);
+      padding: 20px;
+      text-align: center;
     }
-    #dashboard header {
-      flex-direction: column;
-      gap: 1rem;
-      align-items: flex-start;
+
+    .container {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
     }
+
+    section {
+      background-color: var(--card-dark);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      transition: background-color 0.3s ease;
+    }
+
+    h1, h2 {
+      margin-top: 0;
+      font-weight: 700;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+
+    input, button, select {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      width: 90%;
+      max-width: 350px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
+      box-sizing: border-box;
+      transition: background-color 0.3s ease, outline 0.3s ease;
+    }
+
+    input {
+      background-color: #eee;
+      color: #333;
+    }
+
+    input:focus, select:focus {
+      outline: 3px solid var(--primary);
+      background-color: #fff;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 4px 8px rgba(0,170,255,0.4);
+      user-select: none;
+      transition: opacity 0.3s ease, transform 0.1s ease;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .success {
+      color: limegreen;
+      font-weight: 600;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .error {
+      color: #ff4d4d;
+      font-weight: 600;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    #dashboard { display: none; }
+
+    #error {
+      color: #ff4d4d;
+      text-align: center;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    .bereich { display: none; }
+
     .toggle-theme {
-      top: auto;
-      bottom: 1.5rem;
-      right: 1.5rem;
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      background-color: var(--primary);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9em;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,170,255,0.6);
+      user-select: none;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
     }
-  }
-</style>
+
+    .toggle-theme:hover {
+      background-color: #008ecc;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.5em; }
+      section { padding: 15px; }
+      button, input, select { width: 95%; max-width: none; }
+      .container { padding: 15px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -202,13 +167,15 @@
   </header>
 </div>
 
-<div id="dashboard" style="display:none;">
-  <button class="toggle-theme" onclick="toggleTheme()">🌗 Theme wechseln</button>
+<div id="dashboard">
+  <button class="toggle-theme" onclick="toggleTheme()">🌗 Wechsel Theme</button>
+
   <header>
     <h1>📊 Team Dashboard</h1>
-    <span>Willkommen <strong id="user-display"></strong>!</span>
+    <p>Willkommen <span id="user-display"></span>! Du siehst hier deine Teamfunktionen.</p>
     <button onclick="logout()">🚪 Logout</button>
   </header>
+
   <div class="container">
 
     <section class="bereich chef">
@@ -218,14 +185,15 @@
 
     <section class="bereich team">
       <h2>🗂 Aufgabe abschließen</h2>
-      <select id="task-select" aria-label="Aufgabe auswählen">
+      <label for="task-select">Welche Aufgabe wurde erledigt?</label>
+      <select id="task-select">
         <option value="">-- Bitte auswählen --</option>
         <option value="Tickets beantworten">Tickets beantworten</option>
         <option value="Letzte Besprechung dokumentieren">Letzte Besprechung dokumentieren</option>
         <option value="Neues Mitglied geprüft">Neues Mitglied geprüft</option>
-        <option value="test">test beantworten</option>
       </select>
-      <input type="text" id="task-comment" placeholder="Kommentar (optional)" />
+      <label for="task-comment">Kommentar (optional):</label>
+      <input type="text" id="task-comment" placeholder="Kommentar zur Aufgabe..." />
       <button onclick="abschliessen()">✅ Aufgabe abschließen</button>
       <p id="task-status"></p>
     </section>
@@ -250,8 +218,10 @@
 
     <section class="bereich chef">
       <h2>📅 Team-Meeting planen</h2>
-      <input type="text" id="meeting-topic" placeholder="Thema des Meetings" />
-      <input type="text" id="meeting-time" placeholder="Zeitpunkt (z.B. Freitag, 18:00 Uhr)" />
+      <label for="meeting-topic">Thema des Meetings:</label>
+      <input type="text" id="meeting-topic" placeholder="z. B. Wochenplanung oder Sicherheitscheck" />
+      <label for="meeting-time">Zeitpunkt:</label>
+      <input type="text" id="meeting-time" placeholder="z. B. Freitag, 18:00 Uhr" />
       <button onclick="meetingWebhook()">📨 An Discord senden</button>
       <p id="meeting-status"></p>
     </section>
@@ -273,16 +243,19 @@
     const password = document.getElementById("password").value.trim();
     const errorElem = document.getElementById("error");
 
-    if(users[username] && users[username].password === password) {
+    if (users[username] && users[username].password === password) {
       document.getElementById("auth").style.display = "none";
       document.getElementById("dashboard").style.display = "block";
       document.getElementById("user-display").textContent = username;
 
       const role = users[username].role;
-      document.querySelectorAll(".bereich").forEach(s => s.style.display = "none");
+
+      // Chef sieht alle Bereiche
       if(role === "chef") {
         document.querySelectorAll(".bereich").forEach(s => s.style.display = "block");
       } else {
+        // Nur eigene Bereich anzeigen
+        document.querySelectorAll(".bereich").forEach(s => s.style.display = "none");
         document.querySelectorAll(`.bereich.${role}`).forEach(s => s.style.display = "block");
       }
 
@@ -301,54 +274,126 @@
   }
 
   function toggleTheme() {
-    const body = document.body;
-    if(body.dataset.theme === "light") {
-      body.style.background = "linear-gradient(135deg, #2e3a59, #1c253c)";
-      body.style.color = "#eee";
-      body.dataset.theme = "dark";
+    const root = document.documentElement;
+    // check current theme by bg color
+    const currentBg = getComputedStyle(root).getPropertyValue('--bg-dark').trim();
+
+    if (currentBg === '#121212') {
+      root.style.setProperty('--bg-dark', '#f5f5f5');
+      root.style.setProperty('--text-dark', '#000');
+      root.style.setProperty('--card-dark', '#ffffff');
+      root.style.setProperty('--secondary', '#e0e0e0');
     } else {
-      body.style.background = "#f0f4f8";
-      body.style.color = "#222";
-      body.dataset.theme = "light";
+      root.style.setProperty('--bg-dark', '#121212');
+      root.style.setProperty('--text-dark', '#fff');
+      root.style.setProperty('--card-dark', '#1a1a1a');
+      root.style.setProperty('--secondary', '#1f1f1f');
     }
   }
 
   function abschliessen() {
-    const task = document.getElementById("task-select").value;
+    const selectedTask = document.getElementById("task-select").value;
     const comment = document.getElementById("task-comment").value.trim();
     const statusElem = document.getElementById("task-status");
     const username = document.getElementById("user-display").textContent;
 
-    if(!task) {
-      statusElem.textContent = "❗ Bitte wähle eine Aufgabe aus!";
+    if (!selectedTask) {
+      statusElem.textContent = "❗ Bitte wähle eine Aufgabe aus.";
       statusElem.className = "error";
       return;
     }
-    statusElem.textContent = `✅ Aufgabe '${task}' von ${username} abgeschlossen. Kommentar: ${comment || "Kein Kommentar"}`;
-    statusElem.className = "success";
 
-    document.getElementById("task-select").value = "";
-    document.getElementById("task-comment").value = "";
+    // Discord Webhook URL (bitte deine eigene hier einfügen!)
+    const webhookURL = "https://discord.com/api/webhooks/1400610009720553472/iSq183mNu_o_o58oMtqg-i7vPvhnNimhP7e-LMBL7d0MkTGRqdiLo8oBKpaXA7OAMBzs";
+
+    const payload = {
+      embeds: [
+        {
+          title: "✅ Aufgabe erledigt",
+          color: 0x00ff66,
+          fields: [
+            { name: "Erledigt von", value: username, inline: true },
+            { name: "Aufgabe", value: selectedTask, inline: true },
+            { name: "Kommentar", value: comment || "Kein Kommentar" }
+          ],
+          timestamp: new Date().toISOString()
+        }
+      ]
+    };
+
+    fetch(webhookURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+    .then(res => {
+      if (res.ok) {
+        statusElem.textContent = "✅ Aufgabe wurde gemeldet!";
+        statusElem.className = "success";
+        document.getElementById("task-select").value = "";
+        document.getElementById("task-comment").value = "";
+      } else {
+        throw new Error("Webhook-Fehler");
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      statusElem.textContent = "⚠️ Fehler beim Senden!";
+      statusElem.className = "error";
+    });
   }
 
   function meetingWebhook() {
     const topic = document.getElementById("meeting-topic").value.trim();
     const time = document.getElementById("meeting-time").value.trim();
-    const statusElem = document.getElementById("meeting-status");
+    const user = document.getElementById("user-display").textContent;
+    const status = document.getElementById("meeting-status");
 
-    if(!topic || !time) {
-      statusElem.textContent = "❗ Bitte Thema und Zeitpunkt angeben!";
-      statusElem.className = "error";
+    if (!topic || !time) {
+      status.textContent = "❗ Bitte Thema und Zeitpunkt eingeben.";
+      status.className = "error";
       return;
     }
 
-    statusElem.textContent = `📨 Meeting '${topic}' für '${time}' wurde an Discord gesendet.`;
-    statusElem.className = "success";
+    // Discord Webhook URL (bitte deine eigene hier einfügen!)
+    const meetingWebhookURL = "https://discord.com/api/webhooks/1400622177732136991/ysqu2zurdG1xbQ1t12mslOOH5OFCzLwD9bpBPoD6qZtmqFI07fGzF4xw33qPc0et7Q-I";
 
-    document.getElementById("meeting-topic").value = "";
-    document.getElementById("meeting-time").value = "";
+    const meetingPayload = {
+      embeds: [
+        {
+          title: "📅 Neues Team-Meeting geplant",
+          color: 0x0099ff,
+          fields: [
+            { name: "Thema", value: topic },
+            { name: "Zeit", value: time },
+            { name: "Geplant von", value: user }
+          ],
+          timestamp: new Date().toISOString()
+        }
+      ]
+    };
+
+    fetch(meetingWebhookURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(meetingPayload)
+    })
+    .then(res => {
+      if (res.ok) {
+        status.textContent = "✅ Meeting wurde gesendet!";
+        status.className = "success";
+        document.getElementById("meeting-topic").value = "";
+        document.getElementById("meeting-time").value = "";
+      } else {
+        throw new Error("Webhook-Fehler");
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      status.textContent = "⚠️ Fehler beim Senden!";
+      status.className = "error";
+    });
   }
 </script>
-
 </body>
 </html>
